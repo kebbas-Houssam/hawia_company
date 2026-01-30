@@ -19,7 +19,10 @@ import 'core/services/storage_service.dart';
 // Background message handler (must be top-level function)
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // Initialize Firebase only if not already initialized
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  }
   debugPrint('📲 Background notification received');
   debugPrint('   Title: ${message.notification?.title ?? message.data['title']}');
   debugPrint('   Data: ${message.data}');
@@ -33,11 +36,19 @@ void main() async {
   
   debugPrint('\n🚀 ===== APP STARTING =====');
   
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  debugPrint('✅ Firebase initialized');
+  // Initialize Firebase only if not already initialized
+  try {
+    if (Firebase.apps.isEmpty) {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      debugPrint('✅ Firebase initialized');
+    } else {
+      debugPrint('✅ Firebase already initialized (${Firebase.apps.length} app(s))');
+    }
+  } catch (e) {
+    debugPrint('⚠️ Firebase initialization error (may already be initialized): $e');
+  }
   
   // Set background message handler
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
