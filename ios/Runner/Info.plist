@@ -47,7 +47,27 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<true/>
-		<key>UIViewControllerBasedStatusBarAppearance</key>
-		<false/>
-	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<!-- Location Permissions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need your location to show nearby orders and provide accurate delivery services.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need your location to track deliveries and update your position in real-time.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location to track deliveries even when the app is in the background.</string>
+	<!-- Camera & Photo Library Permissions (for image_picker) -->
+	<key>NSCameraUsageDescription</key>
+	<string>We need access to your camera to take photos for orders and documents.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select images for orders and documents.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission to save photos to your library.</string>
+	<!-- Background Modes for Notifications -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+</dict>
 </plist>

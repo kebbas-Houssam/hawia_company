@@ -13,10 +13,10 @@ _$CompanyImpl _$$CompanyImplFromJson(Map<String, dynamic> json) =>
       logoUrl: json['logoUrl'] as String,
       status: json['status'] as String,
       level: (json['level'] as num).toInt(),
-      plan: json['plan'] as String,
-      commissionPercentage: json['commissionPercentage'] as String,
-      companyPhoneNumber: json['companyPhoneNumber'] as String,
-      cityName: json['cityName'] as String,
+      plan: json['plan'] as String?,
+      commissionPercentage: json['commissionPercentage'] as String?,
+      companyPhoneNumber: json['companyPhoneNumber'] as String?,
+      cityName: json['cityName'] as String?,
     );
 
 Map<String, dynamic> _$$CompanyImplToJson(_$CompanyImpl instance) =>

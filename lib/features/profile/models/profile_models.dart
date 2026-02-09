@@ -11,10 +11,10 @@ class Company with _$Company {
     required String logoUrl,
     required String status,
     required int level,
-    required String plan,
-    required String commissionPercentage,
-    required String companyPhoneNumber,
-    required String cityName,
+    String? plan,
+    String? commissionPercentage,
+    String? companyPhoneNumber,
+    String? cityName,
   }) = _Company;
 
   factory Company.fromJson(Map<String, dynamic> json) =>

@@ -9,14 +9,14 @@ part of 'notification_models.dart';
 _$CompanyNotificationImpl _$$CompanyNotificationImplFromJson(
   Map<String, dynamic> json,
 ) => _$CompanyNotificationImpl(
-  id: json['id'] as String,
-  companyId: json['companyId'] as String,
+  id: json['id'] as String? ?? '',
+  companyId: json['companyId'] as String? ?? '',
   globalOrderId: json['globalOrderId'] as String?,
-  type: json['type'] as String,
-  title: json['title'] as String,
-  message: json['message'] as String,
+  type: json['type'] as String? ?? '',
+  title: json['title'] as String? ?? '',
+  message: json['message'] as String? ?? '',
   data: json['data'] as Map<String, dynamic>?,
-  isRead: json['isRead'] as bool,
+  isRead: json['isRead'] as bool? ?? false,
   readAt:
       json['readAt'] == null ? null : DateTime.parse(json['readAt'] as String),
   createdAt: DateTime.parse(json['createdAt'] as String),
@@ -49,12 +49,12 @@ Map<String, dynamic> _$$CompanyNotificationImplToJson(
 _$AdminNotificationImpl _$$AdminNotificationImplFromJson(
   Map<String, dynamic> json,
 ) => _$AdminNotificationImpl(
-  id: json['id'] as String,
-  userId: json['userId'] as String,
+  id: json['id'] as String? ?? '',
+  userId: json['userId'] as String? ?? '',
   orderId: json['orderId'] as String?,
-  type: json['type'] as String,
-  title: json['title'] as String,
-  message: json['message'] as String,
+  type: json['type'] as String? ?? '',
+  title: json['title'] as String? ?? '',
+  message: json['message'] as String? ?? '',
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
 );
@@ -75,13 +75,13 @@ Map<String, dynamic> _$$AdminNotificationImplToJson(
 _$UserNotificationImpl _$$UserNotificationImplFromJson(
   Map<String, dynamic> json,
 ) => _$UserNotificationImpl(
-  id: json['id'] as String,
-  userId: json['userId'] as String,
-  type: json['type'] as String,
-  title: json['title'] as String,
-  message: json['message'] as String,
+  id: json['id'] as String? ?? '',
+  userId: json['userId'] as String? ?? '',
+  type: json['type'] as String? ?? '',
+  title: json['title'] as String? ?? '',
+  message: json['message'] as String? ?? '',
   data: json['data'] as Map<String, dynamic>?,
-  isSeen: json['isSeen'] as bool,
+  isSeen: json['isSeen'] as bool? ?? false,
   seenAt:
       json['seenAt'] == null ? null : DateTime.parse(json['seenAt'] as String),
   createdAt: DateTime.parse(json['createdAt'] as String),
@@ -131,7 +131,7 @@ Map<String, dynamic> _$$GlobalOrderBasicImplToJson(
 _$DeliveryLocationImpl _$$DeliveryLocationImplFromJson(
   Map<String, dynamic> json,
 ) => _$DeliveryLocationImpl(
-  address: json['address'] as String,
+  address: json['address'] as String? ?? '',
   cityName: json['cityName'] as String?,
   latitude: (json['latitude'] as num).toDouble(),
   longitude: (json['longitude'] as num).toDouble(),
@@ -149,13 +149,14 @@ Map<String, dynamic> _$$DeliveryLocationImplToJson(
 _$NotificationsResponseImpl _$$NotificationsResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$NotificationsResponseImpl(
-  success: json['success'] as bool,
+  success: json['success'] as bool? ?? false,
   notifications:
-      (json['notifications'] as List<dynamic>)
-          .map((e) => CompanyNotification.fromJson(e as Map<String, dynamic>))
-          .toList(),
-  unreadCount: (json['unreadCount'] as num).toInt(),
-  total: (json['total'] as num).toInt(),
+      (json['notifications'] as List<dynamic>?)
+          ?.map((e) => CompanyNotification.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      [],
+  unreadCount: (json['unreadCount'] as num?)?.toInt() ?? 0,
+  total: (json['total'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$$NotificationsResponseImplToJson(
@@ -170,8 +171,8 @@ Map<String, dynamic> _$$NotificationsResponseImplToJson(
 _$UnreadCountResponseImpl _$$UnreadCountResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$UnreadCountResponseImpl(
-  success: json['success'] as bool,
-  unreadCount: (json['unreadCount'] as num).toInt(),
+  success: json['success'] as bool? ?? false,
+  unreadCount: (json['unreadCount'] as num?)?.toInt() ?? 0,
 );
 
 Map<String, dynamic> _$$UnreadCountResponseImplToJson(

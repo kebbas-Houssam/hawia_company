@@ -101,13 +101,13 @@ class ProfileScreen extends ConsumerWidget {
                         _InfoRow(
                           icon: Icons.phone_android_rounded,
                           label: 'رقم التواصل',
-                          value: profile.company.companyPhoneNumber,
+                          value: profile.company.companyPhoneNumber ?? 'غير متوفر',
                         ),
                         _Divider(),
                         _InfoRow(
                           icon: Icons.location_city_rounded,
                           label: 'المدينة',
-                          value: profile.company.cityName,
+                          value: profile.company.cityName ?? 'غير متوفر',
                         ),
                       ],
                     ),

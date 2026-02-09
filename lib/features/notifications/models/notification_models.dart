@@ -11,14 +11,14 @@ class CompanyNotification with _$CompanyNotification {
   const CompanyNotification._();
   
   const factory CompanyNotification({
-    required String id,
-    required String companyId,
+    @JsonKey(defaultValue: '') required String id,
+    @JsonKey(defaultValue: '') required String companyId,
     String? globalOrderId,
-    required String type,
-    required String title,
-    required String message,
+    @JsonKey(defaultValue: '') required String type,
+    @JsonKey(defaultValue: '') required String title,
+    @JsonKey(defaultValue: '') required String message,
     Map<String, dynamic>? data,
-    required bool isRead,
+    @JsonKey(defaultValue: false) required bool isRead,
     DateTime? readAt,
     required DateTime createdAt,
     required DateTime updatedAt,
@@ -99,12 +99,12 @@ class AdminNotification with _$AdminNotification {
   const AdminNotification._();
   
   const factory AdminNotification({
-    required String id,
-    required String userId,
+    @JsonKey(defaultValue: '') required String id,
+    @JsonKey(defaultValue: '') required String userId,
     String? orderId,
-    required String type,
-    required String title,
-    required String message,
+    @JsonKey(defaultValue: '') required String type,
+    @JsonKey(defaultValue: '') required String title,
+    @JsonKey(defaultValue: '') required String message,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _AdminNotification;
@@ -130,13 +130,13 @@ class AdminNotification with _$AdminNotification {
 @freezed
 class UserNotification with _$UserNotification {
   const factory UserNotification({
-    required String id,
-    required String userId,
-    required String type,
-    required String title,
-    required String message,
+    @JsonKey(defaultValue: '') required String id,
+    @JsonKey(defaultValue: '') required String userId,
+    @JsonKey(defaultValue: '') required String type,
+    @JsonKey(defaultValue: '') required String title,
+    @JsonKey(defaultValue: '') required String message,
     Map<String, dynamic>? data,
-    required bool isSeen,
+    @JsonKey(defaultValue: false) required bool isSeen,
     DateTime? seenAt,
     required DateTime createdAt,
     required DateTime updatedAt,
@@ -167,7 +167,7 @@ class GlobalOrderBasic with _$GlobalOrderBasic {
 @freezed
 class DeliveryLocation with _$DeliveryLocation {
   const factory DeliveryLocation({
-    required String address,
+    @JsonKey(defaultValue: '') required String address,
     String? cityName,
     required double latitude,
     required double longitude,
@@ -182,10 +182,10 @@ class DeliveryLocation with _$DeliveryLocation {
 @freezed
 class NotificationsResponse with _$NotificationsResponse {
   const factory NotificationsResponse({
-    required bool success,
-    required List<CompanyNotification> notifications,
-    required int unreadCount,
-    required int total,
+    @JsonKey(defaultValue: false) required bool success,
+    @JsonKey(defaultValue: <CompanyNotification>[]) required List<CompanyNotification> notifications,
+    @JsonKey(defaultValue: 0) required int unreadCount,
+    @JsonKey(defaultValue: 0) required int total,
   }) = _NotificationsResponse;
 
   factory NotificationsResponse.fromJson(Map<String, dynamic> json) =>
@@ -195,8 +195,8 @@ class NotificationsResponse with _$NotificationsResponse {
 @freezed
 class UnreadCountResponse with _$UnreadCountResponse {
   const factory UnreadCountResponse({
-    required bool success,
-    required int unreadCount,
+    @JsonKey(defaultValue: false) required bool success,
+    @JsonKey(defaultValue: 0) required int unreadCount,
   }) = _UnreadCountResponse;
 
   factory UnreadCountResponse.fromJson(Map<String, dynamic> json) =>

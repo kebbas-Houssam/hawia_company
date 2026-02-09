@@ -21,13 +21,19 @@ CompanyNotification _$CompanyNotificationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CompanyNotification {
+  @JsonKey(defaultValue: '')
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get companyId => throw _privateConstructorUsedError;
   String? get globalOrderId => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get message => throw _privateConstructorUsedError;
   Map<String, dynamic>? get data => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: false)
   bool get isRead => throw _privateConstructorUsedError;
   DateTime? get readAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -52,14 +58,14 @@ abstract class $CompanyNotificationCopyWith<$Res> {
   ) = _$CompanyNotificationCopyWithImpl<$Res, CompanyNotification>;
   @useResult
   $Res call({
-    String id,
-    String companyId,
+    @JsonKey(defaultValue: '') String id,
+    @JsonKey(defaultValue: '') String companyId,
     String? globalOrderId,
-    String type,
-    String title,
-    String message,
+    @JsonKey(defaultValue: '') String type,
+    @JsonKey(defaultValue: '') String title,
+    @JsonKey(defaultValue: '') String message,
     Map<String, dynamic>? data,
-    bool isRead,
+    @JsonKey(defaultValue: false) bool isRead,
     DateTime? readAt,
     DateTime createdAt,
     DateTime updatedAt,
@@ -189,14 +195,14 @@ abstract class _$$CompanyNotificationImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
-    String companyId,
+    @JsonKey(defaultValue: '') String id,
+    @JsonKey(defaultValue: '') String companyId,
     String? globalOrderId,
-    String type,
-    String title,
-    String message,
+    @JsonKey(defaultValue: '') String type,
+    @JsonKey(defaultValue: '') String title,
+    @JsonKey(defaultValue: '') String message,
     Map<String, dynamic>? data,
-    bool isRead,
+    @JsonKey(defaultValue: false) bool isRead,
     DateTime? readAt,
     DateTime createdAt,
     DateTime updatedAt,
@@ -305,14 +311,14 @@ class __$$CompanyNotificationImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CompanyNotificationImpl extends _CompanyNotification {
   const _$CompanyNotificationImpl({
-    required this.id,
-    required this.companyId,
+    @JsonKey(defaultValue: '') required this.id,
+    @JsonKey(defaultValue: '') required this.companyId,
     this.globalOrderId,
-    required this.type,
-    required this.title,
-    required this.message,
+    @JsonKey(defaultValue: '') required this.type,
+    @JsonKey(defaultValue: '') required this.title,
+    @JsonKey(defaultValue: '') required this.message,
     final Map<String, dynamic>? data,
-    required this.isRead,
+    @JsonKey(defaultValue: false) required this.isRead,
     this.readAt,
     required this.createdAt,
     required this.updatedAt,
@@ -324,16 +330,21 @@ class _$CompanyNotificationImpl extends _CompanyNotification {
       _$$CompanyNotificationImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: '')
   final String id;
   @override
+  @JsonKey(defaultValue: '')
   final String companyId;
   @override
   final String? globalOrderId;
   @override
+  @JsonKey(defaultValue: '')
   final String type;
   @override
+  @JsonKey(defaultValue: '')
   final String title;
   @override
+  @JsonKey(defaultValue: '')
   final String message;
   final Map<String, dynamic>? _data;
   @override
@@ -346,6 +357,7 @@ class _$CompanyNotificationImpl extends _CompanyNotification {
   }
 
   @override
+  @JsonKey(defaultValue: false)
   final bool isRead;
   @override
   final DateTime? readAt;
@@ -422,14 +434,14 @@ class _$CompanyNotificationImpl extends _CompanyNotification {
 
 abstract class _CompanyNotification extends CompanyNotification {
   const factory _CompanyNotification({
-    required final String id,
-    required final String companyId,
+    @JsonKey(defaultValue: '') required final String id,
+    @JsonKey(defaultValue: '') required final String companyId,
     final String? globalOrderId,
-    required final String type,
-    required final String title,
-    required final String message,
+    @JsonKey(defaultValue: '') required final String type,
+    @JsonKey(defaultValue: '') required final String title,
+    @JsonKey(defaultValue: '') required final String message,
     final Map<String, dynamic>? data,
-    required final bool isRead,
+    @JsonKey(defaultValue: false) required final bool isRead,
     final DateTime? readAt,
     required final DateTime createdAt,
     required final DateTime updatedAt,
@@ -441,20 +453,26 @@ abstract class _CompanyNotification extends CompanyNotification {
       _$CompanyNotificationImpl.fromJson;
 
   @override
+  @JsonKey(defaultValue: '')
   String get id;
   @override
+  @JsonKey(defaultValue: '')
   String get companyId;
   @override
   String? get globalOrderId;
   @override
+  @JsonKey(defaultValue: '')
   String get type;
   @override
+  @JsonKey(defaultValue: '')
   String get title;
   @override
+  @JsonKey(defaultValue: '')
   String get message;
   @override
   Map<String, dynamic>? get data;
   @override
+  @JsonKey(defaultValue: false)
   bool get isRead;
   @override
   DateTime? get readAt;
@@ -479,11 +497,16 @@ AdminNotification _$AdminNotificationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AdminNotification {
+  @JsonKey(defaultValue: '')
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get userId => throw _privateConstructorUsedError;
   String? get orderId => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get message => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
@@ -506,12 +529,12 @@ abstract class $AdminNotificationCopyWith<$Res> {
   ) = _$AdminNotificationCopyWithImpl<$Res, AdminNotification>;
   @useResult
   $Res call({
-    String id,
-    String userId,
+    @JsonKey(defaultValue: '') String id,
+    @JsonKey(defaultValue: '') String userId,
     String? orderId,
-    String type,
-    String title,
-    String message,
+    @JsonKey(defaultValue: '') String type,
+    @JsonKey(defaultValue: '') String title,
+    @JsonKey(defaultValue: '') String message,
     DateTime createdAt,
     DateTime updatedAt,
   });
@@ -599,12 +622,12 @@ abstract class _$$AdminNotificationImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
-    String userId,
+    @JsonKey(defaultValue: '') String id,
+    @JsonKey(defaultValue: '') String userId,
     String? orderId,
-    String type,
-    String title,
-    String message,
+    @JsonKey(defaultValue: '') String type,
+    @JsonKey(defaultValue: '') String title,
+    @JsonKey(defaultValue: '') String message,
     DateTime createdAt,
     DateTime updatedAt,
   });
@@ -684,12 +707,12 @@ class __$$AdminNotificationImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AdminNotificationImpl extends _AdminNotification {
   const _$AdminNotificationImpl({
-    required this.id,
-    required this.userId,
+    @JsonKey(defaultValue: '') required this.id,
+    @JsonKey(defaultValue: '') required this.userId,
     this.orderId,
-    required this.type,
-    required this.title,
-    required this.message,
+    @JsonKey(defaultValue: '') required this.type,
+    @JsonKey(defaultValue: '') required this.title,
+    @JsonKey(defaultValue: '') required this.message,
     required this.createdAt,
     required this.updatedAt,
   }) : super._();
@@ -698,16 +721,21 @@ class _$AdminNotificationImpl extends _AdminNotification {
       _$$AdminNotificationImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: '')
   final String id;
   @override
+  @JsonKey(defaultValue: '')
   final String userId;
   @override
   final String? orderId;
   @override
+  @JsonKey(defaultValue: '')
   final String type;
   @override
+  @JsonKey(defaultValue: '')
   final String title;
   @override
+  @JsonKey(defaultValue: '')
   final String message;
   @override
   final DateTime createdAt;
@@ -769,12 +797,12 @@ class _$AdminNotificationImpl extends _AdminNotification {
 
 abstract class _AdminNotification extends AdminNotification {
   const factory _AdminNotification({
-    required final String id,
-    required final String userId,
+    @JsonKey(defaultValue: '') required final String id,
+    @JsonKey(defaultValue: '') required final String userId,
     final String? orderId,
-    required final String type,
-    required final String title,
-    required final String message,
+    @JsonKey(defaultValue: '') required final String type,
+    @JsonKey(defaultValue: '') required final String title,
+    @JsonKey(defaultValue: '') required final String message,
     required final DateTime createdAt,
     required final DateTime updatedAt,
   }) = _$AdminNotificationImpl;
@@ -784,16 +812,21 @@ abstract class _AdminNotification extends AdminNotification {
       _$AdminNotificationImpl.fromJson;
 
   @override
+  @JsonKey(defaultValue: '')
   String get id;
   @override
+  @JsonKey(defaultValue: '')
   String get userId;
   @override
   String? get orderId;
   @override
+  @JsonKey(defaultValue: '')
   String get type;
   @override
+  @JsonKey(defaultValue: '')
   String get title;
   @override
+  @JsonKey(defaultValue: '')
   String get message;
   @override
   DateTime get createdAt;
@@ -814,12 +847,18 @@ UserNotification _$UserNotificationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserNotification {
+  @JsonKey(defaultValue: '')
   String get id => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get userId => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: '')
   String get message => throw _privateConstructorUsedError;
   Map<String, dynamic>? get data => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: false)
   bool get isSeen => throw _privateConstructorUsedError;
   DateTime? get seenAt => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -843,13 +882,13 @@ abstract class $UserNotificationCopyWith<$Res> {
   ) = _$UserNotificationCopyWithImpl<$Res, UserNotification>;
   @useResult
   $Res call({
-    String id,
-    String userId,
-    String type,
-    String title,
-    String message,
+    @JsonKey(defaultValue: '') String id,
+    @JsonKey(defaultValue: '') String userId,
+    @JsonKey(defaultValue: '') String type,
+    @JsonKey(defaultValue: '') String title,
+    @JsonKey(defaultValue: '') String message,
     Map<String, dynamic>? data,
-    bool isSeen,
+    @JsonKey(defaultValue: false) bool isSeen,
     DateTime? seenAt,
     DateTime createdAt,
     DateTime updatedAt,
@@ -950,13 +989,13 @@ abstract class _$$UserNotificationImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
-    String userId,
-    String type,
-    String title,
-    String message,
+    @JsonKey(defaultValue: '') String id,
+    @JsonKey(defaultValue: '') String userId,
+    @JsonKey(defaultValue: '') String type,
+    @JsonKey(defaultValue: '') String title,
+    @JsonKey(defaultValue: '') String message,
     Map<String, dynamic>? data,
-    bool isSeen,
+    @JsonKey(defaultValue: false) bool isSeen,
     DateTime? seenAt,
     DateTime createdAt,
     DateTime updatedAt,
@@ -1049,13 +1088,13 @@ class __$$UserNotificationImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserNotificationImpl implements _UserNotification {
   const _$UserNotificationImpl({
-    required this.id,
-    required this.userId,
-    required this.type,
-    required this.title,
-    required this.message,
+    @JsonKey(defaultValue: '') required this.id,
+    @JsonKey(defaultValue: '') required this.userId,
+    @JsonKey(defaultValue: '') required this.type,
+    @JsonKey(defaultValue: '') required this.title,
+    @JsonKey(defaultValue: '') required this.message,
     final Map<String, dynamic>? data,
-    required this.isSeen,
+    @JsonKey(defaultValue: false) required this.isSeen,
     this.seenAt,
     required this.createdAt,
     required this.updatedAt,
@@ -1065,14 +1104,19 @@ class _$UserNotificationImpl implements _UserNotification {
       _$$UserNotificationImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: '')
   final String id;
   @override
+  @JsonKey(defaultValue: '')
   final String userId;
   @override
+  @JsonKey(defaultValue: '')
   final String type;
   @override
+  @JsonKey(defaultValue: '')
   final String title;
   @override
+  @JsonKey(defaultValue: '')
   final String message;
   final Map<String, dynamic>? _data;
   @override
@@ -1085,6 +1129,7 @@ class _$UserNotificationImpl implements _UserNotification {
   }
 
   @override
+  @JsonKey(defaultValue: false)
   final bool isSeen;
   @override
   final DateTime? seenAt;
@@ -1152,13 +1197,13 @@ class _$UserNotificationImpl implements _UserNotification {
 
 abstract class _UserNotification implements UserNotification {
   const factory _UserNotification({
-    required final String id,
-    required final String userId,
-    required final String type,
-    required final String title,
-    required final String message,
+    @JsonKey(defaultValue: '') required final String id,
+    @JsonKey(defaultValue: '') required final String userId,
+    @JsonKey(defaultValue: '') required final String type,
+    @JsonKey(defaultValue: '') required final String title,
+    @JsonKey(defaultValue: '') required final String message,
     final Map<String, dynamic>? data,
-    required final bool isSeen,
+    @JsonKey(defaultValue: false) required final bool isSeen,
     final DateTime? seenAt,
     required final DateTime createdAt,
     required final DateTime updatedAt,
@@ -1168,18 +1213,24 @@ abstract class _UserNotification implements UserNotification {
       _$UserNotificationImpl.fromJson;
 
   @override
+  @JsonKey(defaultValue: '')
   String get id;
   @override
+  @JsonKey(defaultValue: '')
   String get userId;
   @override
+  @JsonKey(defaultValue: '')
   String get type;
   @override
+  @JsonKey(defaultValue: '')
   String get title;
   @override
+  @JsonKey(defaultValue: '')
   String get message;
   @override
   Map<String, dynamic>? get data;
   @override
+  @JsonKey(defaultValue: false)
   bool get isSeen;
   @override
   DateTime? get seenAt;
@@ -1488,6 +1539,7 @@ DeliveryLocation _$DeliveryLocationFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DeliveryLocation {
+  @JsonKey(defaultValue: '')
   String get address => throw _privateConstructorUsedError;
   String? get cityName => throw _privateConstructorUsedError;
   double get latitude => throw _privateConstructorUsedError;
@@ -1511,7 +1563,7 @@ abstract class $DeliveryLocationCopyWith<$Res> {
   ) = _$DeliveryLocationCopyWithImpl<$Res, DeliveryLocation>;
   @useResult
   $Res call({
-    String address,
+    @JsonKey(defaultValue: '') String address,
     String? cityName,
     double latitude,
     double longitude,
@@ -1576,7 +1628,7 @@ abstract class _$$DeliveryLocationImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String address,
+    @JsonKey(defaultValue: '') String address,
     String? cityName,
     double latitude,
     double longitude,
@@ -1633,7 +1685,7 @@ class __$$DeliveryLocationImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DeliveryLocationImpl implements _DeliveryLocation {
   const _$DeliveryLocationImpl({
-    required this.address,
+    @JsonKey(defaultValue: '') required this.address,
     this.cityName,
     required this.latitude,
     required this.longitude,
@@ -1643,6 +1695,7 @@ class _$DeliveryLocationImpl implements _DeliveryLocation {
       _$$DeliveryLocationImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: '')
   final String address;
   @override
   final String? cityName;
@@ -1694,7 +1747,7 @@ class _$DeliveryLocationImpl implements _DeliveryLocation {
 
 abstract class _DeliveryLocation implements DeliveryLocation {
   const factory _DeliveryLocation({
-    required final String address,
+    @JsonKey(defaultValue: '') required final String address,
     final String? cityName,
     required final double latitude,
     required final double longitude,
@@ -1704,6 +1757,7 @@ abstract class _DeliveryLocation implements DeliveryLocation {
       _$DeliveryLocationImpl.fromJson;
 
   @override
+  @JsonKey(defaultValue: '')
   String get address;
   @override
   String? get cityName;
@@ -1728,10 +1782,14 @@ NotificationsResponse _$NotificationsResponseFromJson(
 
 /// @nodoc
 mixin _$NotificationsResponse {
+  @JsonKey(defaultValue: false)
   bool get success => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: <CompanyNotification>[])
   List<CompanyNotification> get notifications =>
       throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
   int get unreadCount => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
   int get total => throw _privateConstructorUsedError;
 
   /// Serializes this NotificationsResponse to a JSON map.
@@ -1752,10 +1810,11 @@ abstract class $NotificationsResponseCopyWith<$Res> {
   ) = _$NotificationsResponseCopyWithImpl<$Res, NotificationsResponse>;
   @useResult
   $Res call({
-    bool success,
+    @JsonKey(defaultValue: false) bool success,
+    @JsonKey(defaultValue: <CompanyNotification>[])
     List<CompanyNotification> notifications,
-    int unreadCount,
-    int total,
+    @JsonKey(defaultValue: 0) int unreadCount,
+    @JsonKey(defaultValue: 0) int total,
   });
 }
 
@@ -1820,10 +1879,11 @@ abstract class _$$NotificationsResponseImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    bool success,
+    @JsonKey(defaultValue: false) bool success,
+    @JsonKey(defaultValue: <CompanyNotification>[])
     List<CompanyNotification> notifications,
-    int unreadCount,
-    int total,
+    @JsonKey(defaultValue: 0) int unreadCount,
+    @JsonKey(defaultValue: 0) int total,
   });
 }
 
@@ -1878,19 +1938,22 @@ class __$$NotificationsResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$NotificationsResponseImpl implements _NotificationsResponse {
   const _$NotificationsResponseImpl({
-    required this.success,
+    @JsonKey(defaultValue: false) required this.success,
+    @JsonKey(defaultValue: <CompanyNotification>[])
     required final List<CompanyNotification> notifications,
-    required this.unreadCount,
-    required this.total,
+    @JsonKey(defaultValue: 0) required this.unreadCount,
+    @JsonKey(defaultValue: 0) required this.total,
   }) : _notifications = notifications;
 
   factory _$NotificationsResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotificationsResponseImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: false)
   final bool success;
   final List<CompanyNotification> _notifications;
   @override
+  @JsonKey(defaultValue: <CompanyNotification>[])
   List<CompanyNotification> get notifications {
     if (_notifications is EqualUnmodifiableListView) return _notifications;
     // ignore: implicit_dynamic_type
@@ -1898,8 +1961,10 @@ class _$NotificationsResponseImpl implements _NotificationsResponse {
   }
 
   @override
+  @JsonKey(defaultValue: 0)
   final int unreadCount;
   @override
+  @JsonKey(defaultValue: 0)
   final int total;
 
   @override
@@ -1952,22 +2017,27 @@ class _$NotificationsResponseImpl implements _NotificationsResponse {
 
 abstract class _NotificationsResponse implements NotificationsResponse {
   const factory _NotificationsResponse({
-    required final bool success,
+    @JsonKey(defaultValue: false) required final bool success,
+    @JsonKey(defaultValue: <CompanyNotification>[])
     required final List<CompanyNotification> notifications,
-    required final int unreadCount,
-    required final int total,
+    @JsonKey(defaultValue: 0) required final int unreadCount,
+    @JsonKey(defaultValue: 0) required final int total,
   }) = _$NotificationsResponseImpl;
 
   factory _NotificationsResponse.fromJson(Map<String, dynamic> json) =
       _$NotificationsResponseImpl.fromJson;
 
   @override
+  @JsonKey(defaultValue: false)
   bool get success;
   @override
+  @JsonKey(defaultValue: <CompanyNotification>[])
   List<CompanyNotification> get notifications;
   @override
+  @JsonKey(defaultValue: 0)
   int get unreadCount;
   @override
+  @JsonKey(defaultValue: 0)
   int get total;
 
   /// Create a copy of NotificationsResponse
@@ -1984,7 +2054,9 @@ UnreadCountResponse _$UnreadCountResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UnreadCountResponse {
+  @JsonKey(defaultValue: false)
   bool get success => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 0)
   int get unreadCount => throw _privateConstructorUsedError;
 
   /// Serializes this UnreadCountResponse to a JSON map.
@@ -2004,7 +2076,10 @@ abstract class $UnreadCountResponseCopyWith<$Res> {
     $Res Function(UnreadCountResponse) then,
   ) = _$UnreadCountResponseCopyWithImpl<$Res, UnreadCountResponse>;
   @useResult
-  $Res call({bool success, int unreadCount});
+  $Res call({
+    @JsonKey(defaultValue: false) bool success,
+    @JsonKey(defaultValue: 0) int unreadCount,
+  });
 }
 
 /// @nodoc
@@ -2049,7 +2124,10 @@ abstract class _$$UnreadCountResponseImplCopyWith<$Res>
   ) = __$$UnreadCountResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool success, int unreadCount});
+  $Res call({
+    @JsonKey(defaultValue: false) bool success,
+    @JsonKey(defaultValue: 0) int unreadCount,
+  });
 }
 
 /// @nodoc
@@ -2087,16 +2165,18 @@ class __$$UnreadCountResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UnreadCountResponseImpl implements _UnreadCountResponse {
   const _$UnreadCountResponseImpl({
-    required this.success,
-    required this.unreadCount,
+    @JsonKey(defaultValue: false) required this.success,
+    @JsonKey(defaultValue: 0) required this.unreadCount,
   });
 
   factory _$UnreadCountResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$UnreadCountResponseImplFromJson(json);
 
   @override
+  @JsonKey(defaultValue: false)
   final bool success;
   @override
+  @JsonKey(defaultValue: 0)
   final int unreadCount;
 
   @override
@@ -2137,16 +2217,18 @@ class _$UnreadCountResponseImpl implements _UnreadCountResponse {
 
 abstract class _UnreadCountResponse implements UnreadCountResponse {
   const factory _UnreadCountResponse({
-    required final bool success,
-    required final int unreadCount,
+    @JsonKey(defaultValue: false) required final bool success,
+    @JsonKey(defaultValue: 0) required final int unreadCount,
   }) = _$UnreadCountResponseImpl;
 
   factory _UnreadCountResponse.fromJson(Map<String, dynamic> json) =
       _$UnreadCountResponseImpl.fromJson;
 
   @override
+  @JsonKey(defaultValue: false)
   bool get success;
   @override
+  @JsonKey(defaultValue: 0)
   int get unreadCount;
 
   /// Create a copy of UnreadCountResponse

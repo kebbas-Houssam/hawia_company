@@ -26,10 +26,10 @@ mixin _$Company {
   String get logoUrl => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   int get level => throw _privateConstructorUsedError;
-  String get plan => throw _privateConstructorUsedError;
-  String get commissionPercentage => throw _privateConstructorUsedError;
-  String get companyPhoneNumber => throw _privateConstructorUsedError;
-  String get cityName => throw _privateConstructorUsedError;
+  String? get plan => throw _privateConstructorUsedError;
+  String? get commissionPercentage => throw _privateConstructorUsedError;
+  String? get companyPhoneNumber => throw _privateConstructorUsedError;
+  String? get cityName => throw _privateConstructorUsedError;
 
   /// Serializes this Company to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,10 +51,10 @@ abstract class $CompanyCopyWith<$Res> {
     String logoUrl,
     String status,
     int level,
-    String plan,
-    String commissionPercentage,
-    String companyPhoneNumber,
-    String cityName,
+    String? plan,
+    String? commissionPercentage,
+    String? companyPhoneNumber,
+    String? cityName,
   });
 }
 
@@ -78,10 +78,10 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
     Object? logoUrl = null,
     Object? status = null,
     Object? level = null,
-    Object? plan = null,
-    Object? commissionPercentage = null,
-    Object? companyPhoneNumber = null,
-    Object? cityName = null,
+    Object? plan = freezed,
+    Object? commissionPercentage = freezed,
+    Object? companyPhoneNumber = freezed,
+    Object? cityName = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -111,25 +111,25 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
                     : level // ignore: cast_nullable_to_non_nullable
                         as int,
             plan:
-                null == plan
+                freezed == plan
                     ? _value.plan
                     : plan // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             commissionPercentage:
-                null == commissionPercentage
+                freezed == commissionPercentage
                     ? _value.commissionPercentage
                     : commissionPercentage // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             companyPhoneNumber:
-                null == companyPhoneNumber
+                freezed == companyPhoneNumber
                     ? _value.companyPhoneNumber
                     : companyPhoneNumber // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             cityName:
-                null == cityName
+                freezed == cityName
                     ? _value.cityName
                     : cityName // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
           )
           as $Val,
     );
@@ -150,10 +150,10 @@ abstract class _$$CompanyImplCopyWith<$Res> implements $CompanyCopyWith<$Res> {
     String logoUrl,
     String status,
     int level,
-    String plan,
-    String commissionPercentage,
-    String companyPhoneNumber,
-    String cityName,
+    String? plan,
+    String? commissionPercentage,
+    String? companyPhoneNumber,
+    String? cityName,
   });
 }
 
@@ -176,10 +176,10 @@ class __$$CompanyImplCopyWithImpl<$Res>
     Object? logoUrl = null,
     Object? status = null,
     Object? level = null,
-    Object? plan = null,
-    Object? commissionPercentage = null,
-    Object? companyPhoneNumber = null,
-    Object? cityName = null,
+    Object? plan = freezed,
+    Object? commissionPercentage = freezed,
+    Object? companyPhoneNumber = freezed,
+    Object? cityName = freezed,
   }) {
     return _then(
       _$CompanyImpl(
@@ -209,25 +209,25 @@ class __$$CompanyImplCopyWithImpl<$Res>
                 : level // ignore: cast_nullable_to_non_nullable
                     as int,
         plan:
-            null == plan
+            freezed == plan
                 ? _value.plan
                 : plan // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         commissionPercentage:
-            null == commissionPercentage
+            freezed == commissionPercentage
                 ? _value.commissionPercentage
                 : commissionPercentage // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         companyPhoneNumber:
-            null == companyPhoneNumber
+            freezed == companyPhoneNumber
                 ? _value.companyPhoneNumber
                 : companyPhoneNumber // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         cityName:
-            null == cityName
+            freezed == cityName
                 ? _value.cityName
                 : cityName // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
       ),
     );
   }
@@ -242,10 +242,10 @@ class _$CompanyImpl implements _Company {
     required this.logoUrl,
     required this.status,
     required this.level,
-    required this.plan,
-    required this.commissionPercentage,
-    required this.companyPhoneNumber,
-    required this.cityName,
+    this.plan,
+    this.commissionPercentage,
+    this.companyPhoneNumber,
+    this.cityName,
   });
 
   factory _$CompanyImpl.fromJson(Map<String, dynamic> json) =>
@@ -262,13 +262,13 @@ class _$CompanyImpl implements _Company {
   @override
   final int level;
   @override
-  final String plan;
+  final String? plan;
   @override
-  final String commissionPercentage;
+  final String? commissionPercentage;
   @override
-  final String companyPhoneNumber;
+  final String? companyPhoneNumber;
   @override
-  final String cityName;
+  final String? cityName;
 
   @override
   String toString() {
@@ -330,10 +330,10 @@ abstract class _Company implements Company {
     required final String logoUrl,
     required final String status,
     required final int level,
-    required final String plan,
-    required final String commissionPercentage,
-    required final String companyPhoneNumber,
-    required final String cityName,
+    final String? plan,
+    final String? commissionPercentage,
+    final String? companyPhoneNumber,
+    final String? cityName,
   }) = _$CompanyImpl;
 
   factory _Company.fromJson(Map<String, dynamic> json) = _$CompanyImpl.fromJson;
@@ -349,13 +349,13 @@ abstract class _Company implements Company {
   @override
   int get level;
   @override
-  String get plan;
+  String? get plan;
   @override
-  String get commissionPercentage;
+  String? get commissionPercentage;
   @override
-  String get companyPhoneNumber;
+  String? get companyPhoneNumber;
   @override
-  String get cityName;
+  String? get cityName;
 
   /// Create a copy of Company
   /// with the given fields replaced by the non-null parameter values.
