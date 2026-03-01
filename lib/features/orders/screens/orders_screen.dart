@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
@@ -17,18 +18,18 @@ class OrdersScreen extends StatelessWidget {
               color: AppColors.primary,
             ),
             const SizedBox(height: 20),
-            const Text(
-              'إدارة الطلبات',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).manageOrders,
+              style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 10),
-            const Text(
-              'عرض وإدارة جميع الطلبات',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).viewAndManageOrders,
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
               ),

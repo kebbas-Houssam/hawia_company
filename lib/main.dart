@@ -15,6 +15,8 @@ import 'features/orders/providers/orders_provider.dart';
 import 'features/auth/providers/auth_provider.dart';
 import 'features/auth/models/auth_state.dart';
 import 'core/services/storage_service.dart';
+import 'core/providers/language_provider.dart';
+import 'core/utils/app_localizations.dart';
 
 // Background message handler (must be top-level function)
 @pragma('vm:entry-point')
@@ -220,6 +222,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
+    final locale = ref.watch(languageProvider);
     
     // Watch providers to ensure they initialize when authenticated
     ref.watch(adminNotificationsProvider);
@@ -229,13 +232,15 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       title: 'حاويتكم',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      // RTL Support
-      locale: const Locale('ar', 'SA'),
+      // Locale Support (AR, EN, UR)
+      locale: locale,
       supportedLocales: const [
-        Locale('ar', 'SA'), // Arabic
-        Locale('en', 'US'), // English
+        Locale('ar'), // Arabic
+        Locale('en'), // English
+        Locale('ur'), // Urdu
       ],
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

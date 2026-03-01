@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/order_models.dart' as models;
 import 'order_location_map.dart';
 
@@ -68,7 +69,7 @@ void showOrderDetailsModal(
               if (containerType != null)
                 _DetailRow(
                   icon: Icons.inbox,
-                  label: 'نوع الحاوية',
+                  label: AppLocalizations.of(context).containerType,
                   value: containerSize != null
                       ? '$containerType - $containerSize'
                       : containerType,
@@ -76,48 +77,48 @@ void showOrderDetailsModal(
               if (rentalType != null)
                 _DetailRow(
                   icon: Icons.event,
-                  label: 'نوع الإيجار',
-                  value: _getRentalTypeLabel(rentalType),
+                  label: AppLocalizations.of(context).rentalType,
+                  value: _getRentalTypeLabel(rentalType, AppLocalizations.of(context)),
                 ),
               if (status != null)
                 _DetailRow(
                   icon: Icons.info_outline,
-                  label: 'الحالة',
-                  value: _getStatusLabel(status),
+                  label: AppLocalizations.of(context).status,
+                  value: _getStatusLabel(status, AppLocalizations.of(context)),
                 ),
               _DetailRow(
                 icon: Icons.calendar_today,
-                label: 'تاريخ التوصيل',
+                label: AppLocalizations.of(context).deliveryDate,
                 value: dateFormat.format(deliveryDate),
               ),
               if (completedAt != null)
                 _DetailRow(
                   icon: Icons.check_circle,
-                  label: 'تاريخ الإكمال',
+                  label: AppLocalizations.of(context).completionDate,
                   value: dateFormat.format(completedAt),
                 ),
               if (cancelledAt != null)
                 _DetailRow(
                   icon: Icons.event_busy,
-                  label: 'تاريخ الإلغاء',
+                  label: AppLocalizations.of(context).cancellationDate,
                   value: dateFormat.format(cancelledAt),
                 ),
               _DetailRow(
                 icon: Icons.location_on,
-                label: 'العنوان',
-                value: deliveryLocation.address ?? 'غير محدد',
+                label: AppLocalizations.of(context).address,
+                value: deliveryLocation.address ?? AppLocalizations.of(context).unspecified,
               ),
               if (distance != null)
                 _DetailRow(
                   icon: Icons.route,
-                  label: 'المسافة',
-                  value: '${distance.toStringAsFixed(1)} كم',
+                  label: AppLocalizations.of(context).distance,
+                  value: '${distance.toStringAsFixed(1)} ${AppLocalizations.of(context).km}',
                 ),
               if (totalPrice != null)
                 _DetailRow(
                   icon: Icons.attach_money,
-                  label: 'السعر الإجمالي',
-                  value: '${totalPrice.toStringAsFixed(2)} ريال',
+                  label: AppLocalizations.of(context).totalPrice,
+                  value: '${totalPrice.toStringAsFixed(2)} ${AppLocalizations.of(context).sar}',
                 ),
               if (driver != null) ...[
                 const SizedBox(height: 12),
@@ -136,7 +137,7 @@ void showOrderDetailsModal(
                           Icon(Icons.person, color: Colors.green[700], size: 20),
                           const SizedBox(width: 8),
                           Text(
-                            'السائق المعين',
+                            AppLocalizations.of(context).assignedDriver,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.green[700],
@@ -145,9 +146,9 @@ void showOrderDetailsModal(
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Text('الاسم: ${driver.user.name}'),
+                      Text('${AppLocalizations.of(context).driverName}: ${driver.user.name}'),
                       if (driver.licenseNumber != null)
-                        Text('رقم الرخصة: ${driver.licenseNumber}'),
+                        Text('${AppLocalizations.of(context).licenseNumber}: ${driver.licenseNumber}'),
                     ],
                   ),
                 ),
@@ -169,7 +170,7 @@ void showOrderDetailsModal(
                           Icon(Icons.info_outline, color: Colors.red[700], size: 20),
                           const SizedBox(width: 8),
                           Text(
-                            'سبب الإلغاء:',
+                            '${AppLocalizations.of(context).cancellationReason}:',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.red[700],
@@ -243,35 +244,35 @@ class _DetailRow extends StatelessWidget {
   }
 }
 
-String _getRentalTypeLabel(String type) {
+String _getRentalTypeLabel(String type, AppLocalizations loc) {
   switch (type) {
     case 'once':
-      return 'لمرة واحدة';
+      return loc.rentalOnce;
     case 'monthly':
-      return 'شهري';
+      return loc.rentalMonthly;
     case 'annual':
-      return 'سنوي';
+      return loc.rentalAnnual;
     default:
       return type;
   }
 }
 
-String _getStatusLabel(String status) {
+String _getStatusLabel(String status, AppLocalizations loc) {
   switch (status) {
     case 'pending_offers':
-      return 'بانتظار العروض';
+      return loc.statusPendingOffers;
     case 'accepted':
-      return 'مقبول';
+      return loc.statusAccepted;
     case 'in_progress':
-      return 'جاري التنفيذ';
+      return loc.statusInProgress;
     case 'completed':
-      return 'مكتمل';
+      return loc.statusCompleted;
     case 'cancelled':
-      return 'ملغي';
+      return loc.statusCancelled;
     case 'scheduled':
-      return 'مجدول';
+      return loc.statusScheduled;
     case 'picked_up':
-      return 'تم الاستلام';
+      return loc.statusPickedUp;
     default:
       return status;
   }

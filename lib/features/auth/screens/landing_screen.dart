@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -26,26 +28,24 @@ class LandingScreen extends StatelessWidget {
               const SizedBox(height: 32),
               
               // App Name
-              const Text(
-                'حاويتكم',
-                style: TextStyle(
+              Text(
+                loc.appName,
+                style: const TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primary,
                 ),
-                textDirection: TextDirection.rtl,
               ),
               
               const SizedBox(height: 16),
               
               // Welcome Message
-              const Text(
-                'إدارة الحاويات والطلبات بكل سهولة',
-                style: TextStyle(
+              Text(
+                loc.manageContainersEasily,
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.black54,
                 ),
-                textDirection: TextDirection.rtl,
                 textAlign: TextAlign.center,
               ),
               
@@ -64,9 +64,9 @@ class LandingScreen extends StatelessWidget {
                     ),
                     elevation: 0,
                   ),
-                  child: const Text(
-                    'تسجيل الدخول',
-                    style: TextStyle(
+                  child: Text(
+                    loc.signIn,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
@@ -89,9 +89,9 @@ class LandingScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: const Text(
-                    'إنشاء حساب جديد',
-                    style: TextStyle(
+                  child: Text(
+                    loc.createNewAccount,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary,

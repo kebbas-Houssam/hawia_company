@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/config/api_config.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/providers/language_provider.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../../../shared/privacy_policy_page.dart';
 import '../../../shared/terms_and_conditions_page.dart';
 import '../providers/profile_providers.dart';
@@ -13,6 +15,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(profileProvider);
+    final loc = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
@@ -21,9 +24,9 @@ class ProfileScreen extends ConsumerWidget {
         backgroundColor: Colors.white,
         foregroundColor: AppColors.textPrimary,
         centerTitle: true,
-        title: const Text(
-          'الملف الشخصي',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        title: Text(
+          loc.profileTitle,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         actions: [
           IconButton(
@@ -38,6 +41,7 @@ class ProfileScreen extends ConsumerWidget {
             (error, _) => _ErrorState(
               message: error.toString().replaceAll('Exception: ', ''),
               onRetry: () => ref.refresh(profileProvider),
+              retryLabel: loc.retryBtn,
             ),
         data:
             (profile) => RefreshIndicator(
@@ -87,54 +91,58 @@ class ProfileScreen extends ConsumerWidget {
                     const SizedBox(height: 16),
 
                     // ───────────── Info Sections ─────────────
-                    _buildSectionTitle('بيانات المنشأة'),
+                    _buildSectionTitle(loc.facilityData),
                     _InfoCard(
                       children: [
                         _InfoRow(
                           icon:
                               Icons
                                   .fingerprint_rounded, // Better icon for identifier
-                          label: 'معرف الشركة',
+                          label: loc.companyIdentifier,
                           value: profile.company.domain,
                         ),
                         _Divider(),
                         _InfoRow(
                           icon: Icons.phone_android_rounded,
-                          label: 'رقم التواصل',
-                          value: profile.company.companyPhoneNumber ?? 'غير متوفر',
+                          label: loc.contactNumber,
+                          value: profile.company.companyPhoneNumber ?? loc.notAvailable,
                         ),
                         _Divider(),
                         _InfoRow(
                           icon: Icons.location_city_rounded,
-                          label: 'المدينة',
-                          value: profile.company.cityName ?? 'غير متوفر',
+                          label: loc.city,
+                          value: profile.company.cityName ?? loc.notAvailable,
                         ),
                       ],
                     ),
 
-                    _buildSectionTitle('المسؤول عن الحساب'),
+                    _buildSectionTitle(loc.accountManager),
                     _InfoCard(
                       children: [
                         _InfoRow(
                           icon: Icons.person_outline_rounded,
-                          label: 'الاسم الكامل',
+                          label: loc.fullName,
                           value: profile.adminUser.name,
                         ),
                         _Divider(),
                         _InfoRow(
                           icon: Icons.alternate_email_rounded,
-                          label: 'البريد الإلكتروني',
+                          label: loc.email,
                           value: profile.adminUser.email,
                         ),
                       ],
                     ),
 
-                    _buildSectionTitle('الشروط والسياسات'),
+                    // ───────────── Language Switcher ─────────────
+                    _buildSectionTitle(loc.language),
+                    _LanguageSwitcher(),
+
+                    _buildSectionTitle(loc.termsAndPolicies),
                     _InfoCard(
                       children: [
                         _ClickableInfoRow(
                           icon: Icons.description_outlined,
-                          label: 'شروط الخدمة',
+                          label: loc.termsOfService,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -147,7 +155,7 @@ class ProfileScreen extends ConsumerWidget {
                         _Divider(),
                         _ClickableInfoRow(
                           icon: Icons.privacy_tip_outlined,
-                          label: 'سياسة الخصوصية',
+                          label: loc.privacyPolicy,
                           onTap: () {
                             Navigator.push(
                               context,
@@ -170,8 +178,8 @@ class ProfileScreen extends ConsumerWidget {
                         child: ElevatedButton.icon(
                           onPressed: () => _showLogoutDialog(context, ref),
                           icon: const Icon(Icons.logout_rounded, size: 20),
-                          label: const Text(
-                            'تسجيل الخروج',
+                          label: Text(
+                            loc.logout,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -218,6 +226,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   void _showLogoutDialog(BuildContext context, WidgetRef ref) {
+    final loc = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder:
@@ -225,22 +234,22 @@ class ProfileScreen extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            title: const Text('تسجيل الخروج', textAlign: TextAlign.right),
-            content: const Text(
-              'هل أنت متأكد من تسجيل الخروج؟',
+            title: Text(loc.logout, textAlign: TextAlign.right),
+            content: Text(
+              loc.logoutConfirm,
               textAlign: TextAlign.right,
             ),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text('إلغاء'),
+                child: Text(loc.cancel),
               ),
               TextButton(
                 onPressed: () {
                   ref.read(authProvider.notifier).logout();
                   Navigator.pop(context);
                 },
-                child: const Text('خروج', style: TextStyle(color: Colors.red)),
+                child: Text(loc.logoutBtn, style: const TextStyle(color: Colors.red)),
               ),
             ],
           ),
@@ -258,8 +267,9 @@ class _StatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     final color = status == 'approved' ? Colors.teal : Colors.orange;
-    final text = status == 'approved' ? 'موثق' : 'تحت المراجعة';
+    final text = status == 'approved' ? loc.verified : loc.underReview;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
@@ -403,10 +413,112 @@ class _Divider extends StatelessWidget {
   }
 }
 
+class _LanguageSwitcher extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentLocale = ref.watch(languageProvider);
+    final currentLang = currentLocale.languageCode;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          _LanguageOption(
+            flag: '🇸🇦',
+            label: 'العربية',
+            isSelected: currentLang == 'ar',
+            onTap: () => ref.read(languageProvider.notifier).setLanguage('ar'),
+          ),
+          const SizedBox(width: 8),
+          _LanguageOption(
+            flag: '🇬🇧',
+            label: 'English',
+            isSelected: currentLang == 'en',
+            onTap: () => ref.read(languageProvider.notifier).setLanguage('en'),
+          ),
+          const SizedBox(width: 8),
+          _LanguageOption(
+            flag: '🇵🇰',
+            label: 'اردو',
+            isSelected: currentLang == 'ur',
+            onTap: () => ref.read(languageProvider.notifier).setLanguage('ur'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LanguageOption extends StatelessWidget {
+  final String flag;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _LanguageOption({
+    required this.flag,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          decoration: BoxDecoration(
+            color: isSelected
+                ? AppColors.primary.withOpacity(0.1)
+                : Colors.grey.shade50,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: isSelected
+                  ? AppColors.primary
+                  : Colors.grey.shade200,
+              width: isSelected ? 1.5 : 1,
+            ),
+          ),
+          child: Column(
+            children: [
+              Text(flag, style: const TextStyle(fontSize: 22)),
+              const SizedBox(height: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                  color: isSelected ? AppColors.primary : Colors.grey.shade600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _ErrorState extends StatelessWidget {
   final String message;
   final VoidCallback onRetry;
-  const _ErrorState({required this.message, required this.onRetry});
+  final String retryLabel;
+  const _ErrorState({required this.message, required this.onRetry, this.retryLabel = 'إعادة المحاولة'});
 
   @override
   Widget build(BuildContext context) {
@@ -417,7 +529,7 @@ class _ErrorState extends StatelessWidget {
           const Icon(Icons.error_outline_rounded, size: 48, color: Colors.grey),
           const SizedBox(height: 16),
           Text(message, style: const TextStyle(color: Colors.grey)),
-          TextButton(onPressed: onRetry, child: const Text('إعادة المحاولة')),
+          TextButton(onPressed: onRetry, child: Text(retryLabel)),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/utils/app_localizations.dart';
 import 'pending_orders_screen.dart';
 import 'accepted_orders_screen.dart';
 import 'sub_orders_screen.dart';
@@ -31,33 +32,34 @@ class _OrdersMainScreenState extends ConsumerState<OrdersMainScreen>
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات'),
+        title: Text(loc.orders),
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
           tabAlignment: TabAlignment.start,
-          tabs: const [
+          tabs: [
             Tab(
-              icon: Icon(Icons.pending_actions),
-              text: 'الجديدة',
+              icon: const Icon(Icons.pending_actions),
+              text: loc.newOrders,
             ),
             Tab(
-              icon: Icon(Icons.check_circle),
-              text: 'المقبولة',
+              icon: const Icon(Icons.check_circle),
+              text: loc.acceptedOrders,
             ),
             Tab(
-              icon: Icon(Icons.recycling),
-              text: 'الفرعية',
+              icon: const Icon(Icons.recycling),
+              text: loc.subOrders,
             ),
             Tab(
-              icon: Icon(Icons.done_all),
-              text: 'المكتملة',
+              icon: const Icon(Icons.done_all),
+              text: loc.completedOrders,
             ),
             Tab(
-              icon: Icon(Icons.cancel),
-              text: 'الملغية',
+              icon: const Icon(Icons.cancel),
+              text: loc.cancelledOrders,
             ),
           ],
         ),

@@ -18,6 +18,7 @@ import '../../../shared/widgets/phone_input_field.dart';
 import '../../../shared/terms_and_conditions_page.dart';
 import '../../../shared/privacy_policy_page.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class SignUpScreen extends ConsumerStatefulWidget {
   const SignUpScreen({super.key});
@@ -123,7 +124,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('فشل تحميل البيانات: $e', textDirection: TextDirection.rtl),
+            content: Text('${AppLocalizations.of(context).failedLoadData}: $e', textDirection: TextDirection.rtl),
             backgroundColor: Colors.red,
           ),
         );
@@ -147,8 +148,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (bytes > 2 * 1024 * 1024) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('حجم الصورة يجب أن يكون أقل من 2 ميجا', textDirection: TextDirection.rtl),
+            SnackBar(
+              content: Text(AppLocalizations.of(context).imageSizeLimit, textDirection: TextDirection.rtl),
               backgroundColor: Colors.red,
             ),
           );
@@ -170,8 +171,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         if (!opened) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('الرجاء تفعيل خدمة الموقع من الإعدادات', textDirection: TextDirection.rtl),
+              SnackBar(
+                content: Text(AppLocalizations.of(context).pleaseEnableLocation, textDirection: TextDirection.rtl),
                 backgroundColor: Colors.orange,
               ),
             );
@@ -187,8 +188,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         if (permission == LocationPermission.denied) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('تم رفض إذن الموقع', textDirection: TextDirection.rtl),
+              SnackBar(
+                content: Text(AppLocalizations.of(context).locationPermissionDenied, textDirection: TextDirection.rtl),
                 backgroundColor: Colors.red,
               ),
             );
@@ -203,22 +204,22 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('إذن الموقع مطلوب', textDirection: TextDirection.rtl),
-              content: const Text(
-                'الرجاء السماح بالوصول للموقع من إعدادات التطبيق',
+              title: Text(AppLocalizations.of(context).locationPermissionRequired, textDirection: TextDirection.rtl),
+              content: Text(
+                AppLocalizations.of(context).allowLocationAccess,
                 textDirection: TextDirection.rtl,
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('إلغاء', textDirection: TextDirection.rtl),
+                  child: Text(AppLocalizations.of(context).cancel, textDirection: TextDirection.rtl),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                     Geolocator.openAppSettings();
                   },
-                  child: const Text('فتح الإعدادات', textDirection: TextDirection.rtl),
+                  child: Text(AppLocalizations.of(context).openSettings, textDirection: TextDirection.rtl),
                 ),
               ],
             ),
@@ -243,8 +244,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('تم تحديد موقعك بنجاح', textDirection: TextDirection.rtl),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).locationSetSuccess, textDirection: TextDirection.rtl),
             backgroundColor: Colors.green,
           ),
         );
@@ -253,7 +254,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('فشل الحصول على الموقع: $e', textDirection: TextDirection.rtl),
+            content: Text('${AppLocalizations.of(context).failedGetLocation}: $e', textDirection: TextDirection.rtl),
             backgroundColor: Colors.red,
           ),
         );
@@ -287,8 +288,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     
     if (!_agreedToTerms) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يجب الموافقة على شروط الخدمة وسياسة الخصوصية', textDirection: TextDirection.rtl),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).mustAgreeToTerms, textDirection: TextDirection.rtl),
           backgroundColor: Colors.red,
         ),
       );
@@ -300,8 +301,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (_passwordController.text != _confirmPasswordController.text) {
         print('🟡 Passwords do not match');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('كلمات المرور غير متطابقة', textDirection: TextDirection.rtl),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).passwordsDoNotMatch, textDirection: TextDirection.rtl),
             backgroundColor: Colors.red,
           ),
         );
@@ -311,8 +312,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (_logoFile == null) {
         print('🟡 Logo file is null');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('الرجاء اختيار شعار الشركة', textDirection: TextDirection.rtl),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).pleaseSelectLogo, textDirection: TextDirection.rtl),
             backgroundColor: Colors.red,
           ),
         );
@@ -322,8 +323,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
       if (_selectedCity == null) {
         print('🟡 Selected city is null');
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('الرجاء اختيار المدينة', textDirection: TextDirection.rtl),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).pleaseSelectCityMsg, textDirection: TextDirection.rtl),
             backgroundColor: Colors.red,
           ),
         );
@@ -430,9 +431,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            const Text(
-              'إنشاء حساب جديد',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).signUpTitle,
+              style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primary,
@@ -440,61 +441,61 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 8),
-            const Text(
-              'الخطوة 1: بيانات الشركة',
-              style: TextStyle(fontSize: 16, color: Colors.black54),
+            Text(
+              AppLocalizations.of(context).step1CompanyData,
+              style: const TextStyle(fontSize: 16, color: Colors.black54),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 40),
 
             // Company Information
             CustomTextField(
-              label: 'اسم الشركة',
-              hint: 'أدخل اسم الشركة',
+              label: AppLocalizations.of(context).companyName,
+              hint: AppLocalizations.of(context).enterCompanyName,
               controller: _companyNameController,
-              validator: (value) => value?.isEmpty ?? true ? 'مطلوب' : null,
+              validator: (value) => value?.isEmpty ?? true ? AppLocalizations.of(context).required : null,
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'رقم السجل التجاري',
+              label: AppLocalizations.of(context).commercialRegNumber,
               hint: '1234567890',
               controller: _commercialNumberController,
               keyboardType: TextInputType.number,
               validator: (value) {
-                if (value?.isEmpty ?? true) return 'مطلوب';
-                if (value!.length != 10) return 'يجب أن يكون 10 أرقام';
+                if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
+                if (value!.length != 10) return AppLocalizations.of(context).mustBe10Digits;
                 return null;
               },
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'الرقم الضريبي',
-              hint: 'أدخل الرقم الضريبي',
+              label: AppLocalizations.of(context).taxNumber,
+              hint: AppLocalizations.of(context).enterTaxNumber,
               controller: _taxNumberController,
-              validator: (value) => value?.isEmpty ?? true ? 'مطلوب' : null,
+              validator: (value) => value?.isEmpty ?? true ? AppLocalizations.of(context).required : null,
             ),
             const SizedBox(height: 20),
 
             PhoneInputField(
-              label: 'رقم هاتف الشركة',
+              label: AppLocalizations.of(context).companyPhone,
               controller: _companyPhoneNumberController,
               onCountryCodeChanged: (code) {
                 setState(() => _countryCode = code);
               },
               validator: (value) {
-                if (value?.isEmpty ?? true) return 'مطلوب';
-                if (value!.length < 9) return 'رقم الهاتف قصير جداً';
+                if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
+                if (value!.length < 9) return AppLocalizations.of(context).phoneNumberTooShort;
                 return null;
               },
             ),
             const SizedBox(height: 30),
 
             // Region & City Selection
-            const Text(
-              'المنطقة والمدينة',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context).regionAndCity,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 20),
@@ -502,9 +503,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             // Region Dropdown
             DropdownButtonFormField<Region>(
               value: _selectedRegion,
-              decoration: const InputDecoration(
-                labelText: 'المنطقة',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context).region,
+                border: const OutlineInputBorder(),
               ),
               items: _regions.map((region) {
                 return DropdownMenuItem<Region>(
@@ -518,7 +519,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                   _selectedCity = null;
                 });
               },
-              validator: (value) => value == null ? 'الرجاء اختيار المنطقة' : null,
+              validator: (value) => value == null ? AppLocalizations.of(context).pleaseSelectRegion : null,
             ),
             const SizedBox(height: 20),
 
@@ -526,9 +527,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             if (_selectedRegion != null)
               DropdownButtonFormField<City>(
                 value: _selectedCity,
-                decoration: const InputDecoration(
-                  labelText: 'المدينة',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context).city,
+                  border: const OutlineInputBorder(),
                 ),
                 items: _filteredCities.map((city) {
                   return DropdownMenuItem<City>(
@@ -539,14 +540,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 onChanged: (city) {
                   setState(() => _selectedCity = city);
                 },
-                validator: (value) => value == null ? 'الرجاء اختيار المدينة' : null,
+                validator: (value) => value == null ? AppLocalizations.of(context).pleaseSelectCity : null,
               ),
             const SizedBox(height: 30),
 
             // Logo Upload
-            const Text(
-              'شعار الشركة',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context).companyLogo,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 20),
@@ -555,7 +556,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               onPressed: _pickLogo,
               icon: const Icon(Icons.upload_file),
               label: Text(
-                _logoFile == null ? 'اختر شعار الشركة' : 'تم اختيار الشعار',
+                _logoFile == null ? AppLocalizations.of(context).selectCompanyLogo : AppLocalizations.of(context).logoSelected,
                 textDirection: TextDirection.rtl,
               ),
               style: ElevatedButton.styleFrom(
@@ -581,9 +582,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             const SizedBox(height: 30),
 
             // Location Section
-            const Text(
-              'موقع الشركة',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context).companyLocation,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 20),
@@ -591,7 +592,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             ElevatedButton.icon(
               onPressed: _requestCurrentLocation,
               icon: const Icon(Icons.my_location),
-              label: const Text('موقعي الحالي', textDirection: TextDirection.rtl),
+              label: Text(AppLocalizations.of(context).myCurrentLocation, textDirection: TextDirection.rtl),
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
@@ -604,15 +605,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               children: [
                 Expanded(
                   child: CustomTextField(
-                    label: 'خط العرض',
+                    label: AppLocalizations.of(context).latitude,
                     hint: '24.7136',
                     controller: _latitudeController,
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return 'مطلوب';
+                      if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
                       final lat = double.tryParse(value!);
                       if (lat == null || lat < -90 || lat > 90) {
-                        return 'قيمة غير صالحة';
+                        return AppLocalizations.of(context).invalidValue;
                       }
                       return null;
                     },
@@ -629,15 +630,15 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: CustomTextField(
-                    label: 'خط الطول',
+                    label: AppLocalizations.of(context).longitude,
                     hint: '46.6753',
                     controller: _longitudeController,
                     keyboardType: TextInputType.number,
                     validator: (value) {
-                      if (value?.isEmpty ?? true) return 'مطلوب';
+                      if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
                       final lng = double.tryParse(value!);
                       if (lng == null || lng < -180 || lng > 180) {
-                        return 'قيمة غير صالحة';
+                        return AppLocalizations.of(context).invalidValue;
                       }
                       return null;
                     },
@@ -703,88 +704,88 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             const SizedBox(height: 30),
 
             // Bank Information
-            const Text(
-              'معلومات البنك',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context).bankInfo,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'اسم البنك',
-              hint: 'أدخل اسم البنك',
+              label: AppLocalizations.of(context).bankName,
+              hint: AppLocalizations.of(context).enterBankName,
               controller: _bankNameController,
-              validator: (value) => value?.isEmpty ?? true ? 'مطلوب' : null,
+              validator: (value) => value?.isEmpty ?? true ? AppLocalizations.of(context).required : null,
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'رقم الحساب البنكي',
-              hint: 'أدخل رقم الحساب',
+              label: AppLocalizations.of(context).bankAccountNumber,
+              hint: AppLocalizations.of(context).enterAccountNumber,
               controller: _bankAccountNumberController,
               keyboardType: TextInputType.number,
-              validator: (value) => value?.isEmpty ?? true ? 'مطلوب' : null,
+              validator: (value) => value?.isEmpty ?? true ? AppLocalizations.of(context).required : null,
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'رقم الآيبان (IBAN)',
+              label: AppLocalizations.of(context).ibanNumber,
               hint: 'SA0000000000000000000000',
               controller: _ibanController,
-              validator: (value) => value?.isEmpty ?? true ? 'مطلوب' : null,
+              validator: (value) => value?.isEmpty ?? true ? AppLocalizations.of(context).required : null,
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'اسم صاحب الحساب',
-              hint: 'أدخل اسم صاحب الحساب',
+              label: AppLocalizations.of(context).accountHolderName,
+              hint: AppLocalizations.of(context).enterAccountHolderName,
               controller: _bankAccountNameController,
-              validator: (value) => value?.isEmpty ?? true ? 'مطلوب' : null,
+              validator: (value) => value?.isEmpty ?? true ? AppLocalizations.of(context).required : null,
             ),
             const SizedBox(height: 30),
 
             // Admin Account
-            const Text(
-              'حساب المسؤول',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context).adminAccount,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'البريد الإلكتروني',
+              label: AppLocalizations.of(context).email,
               hint: 'admin@company.com',
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               validator: (value) {
-                if (value?.isEmpty ?? true) return 'مطلوب';
-                if (!value!.contains('@')) return 'بريد إلكتروني غير صالح';
+                if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
+                if (!value!.contains('@')) return AppLocalizations.of(context).invalidEmail;
                 return null;
               },
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'كلمة المرور',
-              hint: 'أدخل كلمة المرور',
+              label: AppLocalizations.of(context).password,
+              hint: AppLocalizations.of(context).enterPassword,
               controller: _passwordController,
               isPassword: true,
               validator: (value) {
-                if (value?.isEmpty ?? true) return 'مطلوب';
-                if (value!.length < 6) return 'يجب أن تكون 6 أحرف على الأقل';
+                if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
+                if (value!.length < 6) return AppLocalizations.of(context).mustBe6Chars;
                 return null;
               },
             ),
             const SizedBox(height: 20),
 
             CustomTextField(
-              label: 'تأكيد كلمة المرور',
-              hint: 'أعد إدخال كلمة المرور',
+              label: AppLocalizations.of(context).confirmPassword,
+              hint: AppLocalizations.of(context).reEnterPassword,
               controller: _confirmPasswordController,
               isPassword: true,
               validator: (value) {
-                if (value?.isEmpty ?? true) return 'مطلوب';
-                if (value != _passwordController.text) return 'كلمات المرور غير متطابقة';
+                if (value?.isEmpty ?? true) return AppLocalizations.of(context).required;
+                if (value != _passwordController.text) return AppLocalizations.of(context).passwordsDoNotMatch;
                 return null;
               },
             ),            const SizedBox(height: 20),
@@ -811,9 +812,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           fontFamily: 'Tajawal',
                         ),
                         children: [
-                          const TextSpan(text: 'أوافق على '),
+                          TextSpan(text: AppLocalizations.of(context).iAgreeToTerms),
                           TextSpan(
-                            text: 'شروط الخدمة',
+                            text: AppLocalizations.of(context).termsOfService,
                             style: const TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold,
@@ -829,9 +830,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                                 );
                               },
                           ),
-                          const TextSpan(text: ' و '),
+                          TextSpan(text: ' ${AppLocalizations.of(context).and} '),
                           TextSpan(
-                            text: 'سياسة الخصوصية',
+                            text: AppLocalizations.of(context).privacyPolicy,
                             style: const TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.bold,
@@ -858,7 +859,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
             ),            const SizedBox(height: 40),
 
             LoadingButton(
-              text: 'إرسال رمز التحقق',
+              text: AppLocalizations.of(context).sendVerificationCode,
               isLoading: state.isLoading,
               onPressed: _handleSendVerificationCode,
             ),
@@ -868,13 +869,13 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               child: GestureDetector(
                 onTap: () => context.go('/signin'),
                 child: RichText(
-                  text: const TextSpan(
-                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  text: TextSpan(
+                    style: const TextStyle(fontSize: 14, color: Colors.black54),
                     children: [
-                      TextSpan(text: 'لديك حساب بالفعل؟ '),
+                      TextSpan(text: AppLocalizations.of(context).alreadyHaveAccount),
                       TextSpan(
-                        text: 'تسجيل الدخول',
-                        style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
+                        text: AppLocalizations.of(context).signInTitle,
+                        style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
@@ -895,21 +896,21 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          const Text(
-            'التحقق من البريد الإلكتروني',
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primary),
+          Text(
+            AppLocalizations.of(context).emailVerification,
+            style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.primary),
             textDirection: TextDirection.rtl,
           ),
           const SizedBox(height: 8),
-          const Text(
-            'الخطوة 2: أدخل رمز التحقق المرسل إلى بريدك',
-            style: TextStyle(fontSize: 16, color: Colors.black54),
+          Text(
+            AppLocalizations.of(context).step2VerificationCode,
+            style: const TextStyle(fontSize: 16, color: Colors.black54),
             textDirection: TextDirection.rtl,
           ),
           const SizedBox(height: 40),
 
           CustomTextField(
-            label: 'رمز التحقق',
+            label: AppLocalizations.of(context).verificationCode,
             hint: '123456',
             controller: _codeController,
             keyboardType: TextInputType.number,
@@ -917,7 +918,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
           const SizedBox(height: 40),
 
           LoadingButton(
-            text: 'تأكيد التسجيل',
+            text: AppLocalizations.of(context).confirmRegistration,
             isLoading: state.isLoading,
             onPressed: _handleVerifyAndRegister,
           ),
@@ -934,16 +935,16 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
         children: [
           const Icon(Icons.check_circle, color: Colors.green, size: 100),
           const SizedBox(height: 30),
-          const Text(
-            'تم إرسال طلبك بنجاح!',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Text(
+            AppLocalizations.of(context).requestSentSuccess,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-          const Text(
-            'طلبك قيد المراجعة. سوف تتلقى بريدًا إلكترونيًا برقم تعريفي مكون من 10 أرقام لتسجيل الدخول بعد الموافقة.',
-            style: TextStyle(fontSize: 16, color: Colors.black54),
+          Text(
+            AppLocalizations.of(context).requestUnderReview,
+            style: const TextStyle(fontSize: 16, color: Colors.black54),
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,
           ),
@@ -954,9 +955,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
               backgroundColor: AppColors.primary,
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
             ),
-            child: const Text(
-              'العودة لتسجيل الدخول',
-              style: TextStyle(fontSize: 16, color: Colors.white),
+            child: Text(
+              AppLocalizations.of(context).backToSignIn,
+              style: const TextStyle(fontSize: 16, color: Colors.white),
               textDirection: TextDirection.rtl,
             ),
           ),

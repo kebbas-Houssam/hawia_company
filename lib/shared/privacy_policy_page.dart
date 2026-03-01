@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/config/app_theme.dart';
+import '../core/utils/app_localizations.dart';
 
 class PrivacyPolicyPage extends StatelessWidget {
   const PrivacyPolicyPage({Key? key}) : super(key: key);
@@ -12,9 +13,9 @@ class PrivacyPolicyPage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         iconTheme: const IconThemeData(color: AppColors.white),
         elevation: 0,
-        title: const Text(
-          'سياسة الخصوصية',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).privacyPolicyTitle,
+          style: const TextStyle(
             color: AppColors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,

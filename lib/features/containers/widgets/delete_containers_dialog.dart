@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/container_models.dart' as models;
 import '../providers/containers_provider.dart';
 import '../services/containers_api_service.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class DeleteContainersDialog extends ConsumerStatefulWidget {
   final String type;
@@ -36,9 +37,9 @@ class _DeleteContainersDialogState
         children: [
           Icon(Icons.delete, color: Colors.red[700]),
           const SizedBox(width: 8),
-          const Text(
-            'حذف حاويات',
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Text(
+            AppLocalizations.of(context).deleteContainers,
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -58,17 +59,17 @@ class _DeleteContainersDialogState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'النوع: ${widget.type}',
+                    '${AppLocalizations.of(context).typeLabel}: ${widget.type}',
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'الحجم: ${widget.size}',
+                    '${AppLocalizations.of(context).sizeLabel}: ${widget.size}',
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'عدد الحاويات المتاحة للحذف: ${widget.availableCount}',
+                    '${AppLocalizations.of(context).availableForDeletion}: ${widget.availableCount}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.green,
@@ -92,19 +93,19 @@ class _DeleteContainersDialogState
                   children: [
                     Icon(Icons.info_outline, color: Colors.orange[700]),
                     const SizedBox(width: 8),
-                    const Expanded(
+                    Expanded(
                       child: Text(
-                        'لا توجد حاويات متاحة للحذف. جميع الحاويات مؤجرة أو في الصيانة.',
-                        style: TextStyle(fontSize: 14),
+                        AppLocalizations.of(context).noContainersAvailableForDeletion,
+                        style: const TextStyle(fontSize: 14),
                       ),
                     ),
                   ],
                 ),
               )
             else ...[
-              const Text(
-                'كم حاوية تريد حذفها؟',
-                style: TextStyle(fontWeight: FontWeight.w500),
+              Text(
+                AppLocalizations.of(context).howManyToDelete,
+                style: const TextStyle(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               TextFormField(
@@ -113,7 +114,7 @@ class _DeleteContainersDialogState
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  helperText: 'الحد الأقصى: ${widget.availableCount} حاوية',
+                  helperText: '${AppLocalizations.of(context).maxLimit}: ${widget.availableCount}',
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 16,
@@ -146,20 +147,20 @@ class _DeleteContainersDialogState
                       children: [
                         Icon(Icons.warning, color: Colors.orange[700]),
                         const SizedBox(width: 8),
-                        const Text(
-                          'تنبيه مهم',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                        Text(
+                          AppLocalizations.of(context).importantWarning,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      '• سيتم حذف فقط الحاويات المتاحة (غير المؤجرة)',
-                      style: TextStyle(fontSize: 14),
+                    Text(
+                      '• ${AppLocalizations.of(context).onlyAvailableDeleted}',
+                      style: const TextStyle(fontSize: 14),
                     ),
-                    const Text(
-                      '• لا يمكن التراجع عن هذا الإجراء',
-                      style: TextStyle(fontSize: 14),
+                    Text(
+                      '• ${AppLocalizations.of(context).cannotUndoAction}',
+                      style: const TextStyle(fontSize: 14),
                     ),
                   ],
                 ),
@@ -206,7 +207,7 @@ class _DeleteContainersDialogState
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text('إلغاء', style: TextStyle(fontSize: 16)),
+                child: Text(AppLocalizations.of(context).cancel, style: const TextStyle(fontSize: 16)),
               ),
             ),
             if (widget.availableCount > 0) ...[
@@ -232,7 +233,7 @@ class _DeleteContainersDialogState
                             ),
                           )
                           : Text(
-                            'حذف $quantity حاوية',
+                            '${AppLocalizations.of(context).delete} $quantity',
                             style: const TextStyle(fontSize: 16),
                           ),
                 ),
@@ -265,7 +266,7 @@ class _DeleteContainersDialogState
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('تم حذف الحاويات بنجاح!')));
+        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).containersDeletedSuccess)));
         Navigator.pop(context);
       }
     } catch (e) {

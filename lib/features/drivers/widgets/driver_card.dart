@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/driver.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class DriverCard extends StatelessWidget {
   final Driver driver;
@@ -117,7 +118,7 @@ class DriverCard extends StatelessWidget {
                       Icons.edit_outlined,
                       color: AppColors.primary,
                     ),
-                    tooltip: 'تعديل',
+                    tooltip: AppLocalizations.of(context).edit,
                   ),
                   IconButton(
                     onPressed: onDelete,
@@ -125,7 +126,7 @@ class DriverCard extends StatelessWidget {
                       Icons.delete_outline,
                       color: Colors.red,
                     ),
-                    tooltip: 'حذف',
+                    tooltip: AppLocalizations.of(context).delete,
                   ),
                 ],
               ),

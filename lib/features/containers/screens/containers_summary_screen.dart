@@ -5,6 +5,7 @@ import '../models/container_models.dart' as models;
 import '../widgets/add_container_bottom_sheet.dart';
 import '../widgets/edit_container_status_sheet.dart';
 import '../widgets/delete_containers_dialog.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class ContainersSummaryScreen extends ConsumerStatefulWidget {
   const ContainersSummaryScreen({super.key});
@@ -30,7 +31,7 @@ class _ContainersSummaryScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('إدارة الحاويات'),
+        title: Text(AppLocalizations.of(context).manageContainers),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -146,7 +147,7 @@ class _ContainerSummaryTable extends StatelessWidget {
                   ),
                 ),
                 trailing: Text(
-                  'إجمالي: ${item.total}',
+                  '${AppLocalizations.of(context).total}: ${item.total}',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -159,11 +160,11 @@ class _ContainerSummaryTable extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildStat(context, 'متاح', item.available, Colors.green),
-                    _buildStat(context, 'مؤجرة', item.rented, Colors.blue),
+                    _buildStat(context, AppLocalizations.of(context).available, item.available, Colors.green),
+                    _buildStat(context, AppLocalizations.of(context).rented, item.rented, Colors.blue),
                     _buildStat(
                       context,
-                      'صيانة',
+                      AppLocalizations.of(context).maintenance,
                       item.maintenance,
                       Colors.orange,
                     ),
@@ -183,7 +184,7 @@ class _ContainerSummaryTable extends StatelessWidget {
                       child: TextButton.icon(
                         onPressed: () => onEdit(item),
                         icon: const Icon(Icons.edit, size: 18),
-                        label: const Text('تعديل'),
+                        label: Text(AppLocalizations.of(context).edit),
                       ),
                     ),
                     const VerticalDivider(width: 1),
@@ -195,9 +196,9 @@ class _ContainerSummaryTable extends StatelessWidget {
                           size: 18,
                           color: Colors.red,
                         ),
-                        label: const Text(
-                          'حذف',
-                          style: TextStyle(color: Colors.red),
+                        label: Text(
+                          AppLocalizations.of(context).delete,
+                          style: const TextStyle(color: Colors.red),
                         ),
                       ),
                     ),
@@ -248,12 +249,12 @@ class _EmptyView extends StatelessWidget {
         children: [
           Icon(Icons.inbox_outlined, size: 80, color: Colors.grey[400]),
           const SizedBox(height: 16),
-          const Text('لا توجد حاويات', style: TextStyle(fontSize: 18)),
+          Text(AppLocalizations.of(context).noContainers, style: const TextStyle(fontSize: 18)),
           const SizedBox(height: 24),
           ElevatedButton.icon(
             onPressed: onAdd,
             icon: const Icon(Icons.add),
-            label: const Text('إضافة حاوية'),
+            label: Text(AppLocalizations.of(context).addContainer),
           ),
         ],
       ),
@@ -280,7 +281,7 @@ class _ErrorView extends StatelessWidget {
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: onRetry,
-            child: const Text('إعادة المحاولة'),
+            child: Text(AppLocalizations.of(context).retry),
           ),
         ],
       ),

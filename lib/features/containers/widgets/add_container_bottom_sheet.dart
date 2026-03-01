@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/container_models.dart' as models;
 import '../providers/containers_provider.dart';
 import '../services/containers_api_service.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class AddContainerBottomSheet extends ConsumerStatefulWidget {
   const AddContainerBottomSheet({super.key});
@@ -58,9 +59,9 @@ class _AddContainerBottomSheetState
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'إضافة حاوية جديدة',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context).addNewContainer,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -135,9 +136,9 @@ class _AddContainerBottomSheetState
                             children: [
                               const Icon(Icons.category, size: 20),
                               const SizedBox(width: 8),
-                              const Text(
-                                'نوع الحاوية *',
-                                style: TextStyle(
+                              Text(
+                                '${AppLocalizations.of(context).containerType} *',
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -156,7 +157,7 @@ class _AddContainerBottomSheetState
                                 vertical: 16,
                               ),
                             ),
-                            hint: const Text('اختر نوع الحاوية'),
+                            hint: Text(AppLocalizations.of(context).selectContainerType),
                             items: types.map((type) {
                               return DropdownMenuItem(
                                 value: type.name,
@@ -190,7 +191,7 @@ class _AddContainerBottomSheetState
                       loading: () =>
                           const Center(child: CircularProgressIndicator()),
                       error: (error, stack) => Text(
-                        'خطأ في تحميل الأنواع: $error',
+                        '${AppLocalizations.of(context).errorLoadingTypes}: $error',
                         style: const TextStyle(color: Colors.red),
                       ),
                     ),
@@ -202,9 +203,9 @@ class _AddContainerBottomSheetState
                         children: [
                           const Icon(Icons.straighten, size: 20),
                           const SizedBox(width: 8),
-                          const Text(
-                            'حجم الحاوية *',
-                            style: TextStyle(
+                          Text(
+                            '${AppLocalizations.of(context).containerSize} *',
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -223,7 +224,7 @@ class _AddContainerBottomSheetState
                             vertical: 16,
                           ),
                         ),
-                        hint: const Text('اختر حجم الحاوية'),
+                        hint: Text(AppLocalizations.of(context).selectContainerSize),
                         items: selectedTypeData!.sizes.map((size) {
                           return DropdownMenuItem(
                             value: size.size,
@@ -278,9 +279,9 @@ class _AddContainerBottomSheetState
                       children: [
                         const Icon(Icons.numbers, size: 20),
                         const SizedBox(width: 8),
-                        const Text(
-                          'عدد الحاويات *',
-                          style: TextStyle(
+                        Text(
+                          '${AppLocalizations.of(context).containerCount} *',
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -299,7 +300,7 @@ class _AddContainerBottomSheetState
                           vertical: 16,
                         ),
                         helperText:
-                            'سيتم إضافة $quantity حاوية من نفس النوع والحجم',
+                            AppLocalizations.of(context).willAddContainers(quantity),
                       ),
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
@@ -316,9 +317,9 @@ class _AddContainerBottomSheetState
                       children: [
                         const Icon(Icons.settings, size: 20),
                         const SizedBox(width: 8),
-                        const Text(
-                          'حالة الحاوية',
-                          style: TextStyle(
+                        Text(
+                          AppLocalizations.of(context).containerStatus,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -337,18 +338,18 @@ class _AddContainerBottomSheetState
                           vertical: 16,
                         ),
                       ),
-                      items: const [
+                      items: [
                         DropdownMenuItem(
                           value: 'available',
-                          child: Text('متاح للتأجير'),
+                          child: Text(AppLocalizations.of(context).availableForRent),
                         ),
                         DropdownMenuItem(
                           value: 'rented',
-                          child: Text('مؤجرة'),
+                          child: Text(AppLocalizations.of(context).rented),
                         ),
                         DropdownMenuItem(
                           value: 'maintenance',
-                          child: Text('صيانة'),
+                          child: Text(AppLocalizations.of(context).maintenance),
                         ),
                       ],
                       onChanged: (value) =>
@@ -378,9 +379,9 @@ class _AddContainerBottomSheetState
                                 color: Colors.white,
                               ),
                             )
-                          : const Text(
-                              'إضافة الحاوية',
-                              style: TextStyle(fontSize: 16),
+                          : Text(
+                              AppLocalizations.of(context).addContainerBtn,
+                              style: const TextStyle(fontSize: 16),
                             ),
                     ),
                   ],

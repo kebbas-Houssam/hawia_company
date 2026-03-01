@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/order_models.dart' as models;
 import '../providers/orders_provider.dart';
 import '../../drivers/providers/drivers_provider.dart';
@@ -33,10 +34,11 @@ class _AcceptedOrdersScreenState extends ConsumerState<AcceptedOrdersScreen>
   @override
   Widget build(BuildContext context) {
     final ordersState = ref.watch(acceptedOrdersProvider);
+    final loc = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات المقبولة'),
+        title: Text(loc.acceptedOrders),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -52,7 +54,7 @@ class _AcceptedOrdersScreenState extends ConsumerState<AcceptedOrdersScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('بدون سائق'),
+                  Text(loc.withoutDriver),
                   const SizedBox(width: 4),
                   if (ordersState.ordersWithoutDriver.isNotEmpty)
                     Container(
@@ -77,7 +79,7 @@ class _AcceptedOrdersScreenState extends ConsumerState<AcceptedOrdersScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('مع سائق'),
+                  Text(loc.withDriver),
                   const SizedBox(width: 4),
                   if (ordersState.ordersWithDriver.isNotEmpty)
                     Container(
@@ -127,7 +129,7 @@ class _AcceptedOrdersScreenState extends ConsumerState<AcceptedOrdersScreen>
                                 .read(acceptedOrdersProvider.notifier)
                                 .fetchOrders();
                           },
-                          child: const Text('إعادة المحاولة'),
+                          child: Text(loc.retry),
                         ),
                       ],
                     ),
@@ -137,12 +139,12 @@ class _AcceptedOrdersScreenState extends ConsumerState<AcceptedOrdersScreen>
                     children: [
                       _OrdersList(
                         orders: ordersState.ordersWithoutDriver,
-                        emptyMessage: 'جميع الطلبات لديها سائقين معينين',
+                        emptyMessage: loc.allOrdersHaveDrivers,
                         showAssignButton: true,
                       ),
                       _OrdersList(
                         orders: ordersState.ordersWithDriver,
-                        emptyMessage: 'لا توجد طلبات مع سائقين',
+                        emptyMessage: loc.noOrdersWithDrivers,
                         showAssignButton: false,
                       ),
                     ],
@@ -240,7 +242,7 @@ class _OrderCard extends ConsumerWidget {
                         _showDriverAssignmentDialog(context, order.id, order.orderNumber);
                       },
                       icon: const Icon(Icons.person_add),
-                      label: const Text('تعيين سائق'),
+                      label: Text(AppLocalizations.of(context).assignDriver),
                     ),
                   )
                 : null,
@@ -297,11 +299,11 @@ class _OrderCard extends ConsumerWidget {
             ),
             _InfoRow(
               icon: Icons.inventory,
-              text: 'حاوية رقم: ${order.container.containerNumber ?? "غير محدد"}',
+              text: '${AppLocalizations.of(context).containerNumber}: ${order.container.containerNumber ?? AppLocalizations.of(context).unspecified}',
             ),
             _InfoRow(
               icon: Icons.location_on,
-              text: order.deliveryLocation.address ?? 'غير محدد',
+              text: order.deliveryLocation.address ?? AppLocalizations.of(context).unspecified,
             ),
             _InfoRow(
               icon: Icons.calendar_today,
@@ -333,12 +335,12 @@ class _OrderCard extends ConsumerWidget {
                           ),
                           if (order.driver!.licenseNumber != null)
                             Text(
-                              'رخصة: ${order.driver!.licenseNumber}',
+                              '${AppLocalizations.of(context).licenseLabel}: ${order.driver!.licenseNumber}',
                               style: const TextStyle(fontSize: 12),
                             ),
                           if (order.driver!.vehicleType != null)
                             Text(
-                              'مركبة: ${order.driver!.vehicleType}',
+                              '${AppLocalizations.of(context).vehicleLabel}: ${order.driver!.vehicleType}',
                               style: const TextStyle(fontSize: 12),
                             ),
                         ],
@@ -355,7 +357,7 @@ class _OrderCard extends ConsumerWidget {
                 child: ElevatedButton.icon(
                   onPressed: () => _showDriverSelectionDialog(context, ref),
                   icon: const Icon(Icons.person_add),
-                  label: const Text('تعيين سائق'),
+                  label: Text(AppLocalizations.of(context).assignDriver),
                 ),
               )
             else
@@ -365,7 +367,7 @@ class _OrderCard extends ConsumerWidget {
                     child: OutlinedButton.icon(
                       onPressed: () => _showDriverSelectionDialog(context, ref),
                       icon: const Icon(Icons.swap_horiz),
-                      label: const Text('تغيير السائق'),
+                      label: Text(AppLocalizations.of(context).changeDriver),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -374,11 +376,11 @@ class _OrderCard extends ConsumerWidget {
                       onPressed: () {
                         // TODO: Navigate to tracking screen
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('ميزة التتبع قريباً')),
+                          SnackBar(content: Text(AppLocalizations.of(context).trackingComingSoon)),
                         );
                       },
                       icon: const Icon(Icons.map),
-                      label: const Text('تتبع'),
+                      label: Text(AppLocalizations.of(context).track),
                     ),
                   ),
                 ],
@@ -472,7 +474,7 @@ class _DriverSelectionDialogState
     final drivers = driversState.drivers.where((d) => d.availability == 'available').toList();
 
     return AlertDialog(
-      title: const Text('تعيين سائق'),
+      title: Text(AppLocalizations.of(context).assignDriver),
       content: SizedBox(
         width: double.maxFinite,
         child: Column(
@@ -480,7 +482,7 @@ class _DriverSelectionDialogState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'الطلب: ${widget.orderNumber}',
+              '${AppLocalizations.of(context).orderPrefix}: ${widget.orderNumber}',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 16),
@@ -492,12 +494,12 @@ class _DriverSelectionDialogState
                 ),
               )
             else if (drivers.isEmpty)
-              const Center(
+              Center(
                 child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
-                    'لا يوجد سائقين متاحين حالياً',
-                    style: TextStyle(color: Colors.grey),
+                    AppLocalizations.of(context).noDriversAvailable,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ),
               )
@@ -517,7 +519,7 @@ class _DriverSelectionDialogState
                         setState(() => _selectedDriverId = value);
                       },
                       title: Text(driver.name),
-                      subtitle: Text('رقم الهوية: ${driver.identityNumber}'),
+                      subtitle: Text('${AppLocalizations.of(context).identityNumber}: ${driver.identityNumber}'),
                     );
                   },
                 ),
@@ -528,7 +530,7 @@ class _DriverSelectionDialogState
       actions: [
         TextButton(
           onPressed: _isAssigning ? null : () => Navigator.pop(context),
-          child: const Text('إلغاء'),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _selectedDriverId == null || _isAssigning
@@ -543,7 +545,7 @@ class _DriverSelectionDialogState
                     color: Colors.white,
                   ),
                 )
-              : const Text('تعيين'),
+              : Text(AppLocalizations.of(context).assignDriver),
         ),
       ],
     );
@@ -562,16 +564,16 @@ class _DriverSelectionDialogState
     if (success) {
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('✅ تم تعيين السائق بنجاح'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).driverAssignedSuccess),
           backgroundColor: Colors.green,
         ),
       );
     } else {
       setState(() => _isAssigning = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('❌ فشل تعيين السائق'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).driverAssignFailed),
           backgroundColor: Colors.red,
         ),
       );

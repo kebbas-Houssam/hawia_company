@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class ContainersScreen extends StatelessWidget {
   const ContainersScreen({super.key});
@@ -17,18 +18,18 @@ class ContainersScreen extends StatelessWidget {
               color: AppColors.primary,
             ),
             const SizedBox(height: 20),
-            const Text(
-              'إدارة الحاويات',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).manageContainers,
+              style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
               textDirection: TextDirection.rtl,
             ),
             const SizedBox(height: 10),
-            const Text(
-              'عرض وإدارة جميع الحاويات',
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context).viewAndManageContainers,
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
               ),

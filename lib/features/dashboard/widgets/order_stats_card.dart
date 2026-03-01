@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/dashboard_stats.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class OrderStatsCard extends StatelessWidget {
   final OrderStats stats;
@@ -24,9 +25,9 @@ class OrderStatsCard extends StatelessWidget {
                   size: 32,
                   color: Colors.grey[700],
                 ),
-                const Text(
-                  'إحصائيات الطلبات',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  AppLocalizations.of(context).orderStats,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -38,17 +39,17 @@ class OrderStatsCard extends StatelessWidget {
               children: [
                 _StatItem(
                   value: stats.total.toString(),
-                  label: 'الإجمالي',
+                  label: AppLocalizations.of(context).totalOrdersStat,
                   color: Colors.grey[700]!,
                 ),
                 _StatItem(
                   value: stats.pending.toString(),
-                  label: 'قيد المعالجة',
+                  label: AppLocalizations.of(context).pendingOrders,
                   color: const Color(0xFF1DC411),
                 ),
                 _StatItem(
                   value: stats.completed.toString(),
-                  label: 'مكتملة',
+                  label: AppLocalizations.of(context).completedStat,
                   color: const Color(0xFFE38214),
                 ),
               ],

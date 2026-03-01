@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../config/app_theme.dart';
+import '../utils/app_localizations.dart';
 import '../../shared/widgets/notification_icon_button.dart';
 
 
@@ -33,11 +34,12 @@ class MainLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'حاويتكم',
-          style: TextStyle(
+        title: Text(
+          loc.appName,
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -50,12 +52,12 @@ class MainLayout extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.support_agent),
             onPressed: () => context.push('/support'),
-            tooltip: 'الدعم الفني',
+            tooltip: loc.technicalSupport,
           ),
           IconButton(
             icon: const Icon(Icons.person),
             onPressed: () => context.push('/profile'),
-            tooltip: 'الملف الشخصي',
+            tooltip: loc.profile,
           ),
         ],
       ),
@@ -73,22 +75,22 @@ class MainLayout extends StatelessWidget {
         unselectedLabelStyle: const TextStyle(
           fontSize: 12,
         ),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_rounded),
-            label: 'لوحة التحكم',
+            icon: const Icon(Icons.dashboard_rounded),
+            label: loc.dashboard,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart_rounded),
-            label: 'الطلبات',
+            icon: const Icon(Icons.shopping_cart_rounded),
+            label: loc.orders,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_shipping_rounded),
-            label: 'السائقين',
+            icon: const Icon(Icons.local_shipping_rounded),
+            label: loc.drivers,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.inventory_2_rounded),
-            label: 'الحاويات',
+            icon: const Icon(Icons.inventory_2_rounded),
+            label: loc.containers,
           ),
         ],
       ),

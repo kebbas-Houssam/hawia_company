@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../models/dashboard_stats.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class MonthlyChartCard extends StatelessWidget {
   final List<MonthlyData> data;
@@ -39,10 +40,10 @@ class MonthlyChartCard extends StatelessWidget {
                   size: 32,
                   color: Colors.grey[700],
                 ),
-                const Expanded(
+                Expanded(
                   child: Text(
-                    'الإحصائيات الشهرية للطلبات والإيرادات',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    AppLocalizations.of(context).monthlyStats,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     textAlign: TextAlign.right,
                   ),
                 ),
@@ -145,8 +146,8 @@ class MonthlyChartCard extends StatelessWidget {
                               children: [
                                 TextSpan(
                                   text: isRevenue
-                                      ? 'الإيرادات: ${spot.y.toStringAsFixed(0)}k ر.س'
-                                      : 'الطلبات: ${spot.y.toStringAsFixed(0)}',
+                                      ? '${AppLocalizations.of(context).revenueTooltip}: ${spot.y.toStringAsFixed(0)}k ${AppLocalizations.of(context).sar}'
+                                      : '${AppLocalizations.of(context).ordersTooltip}: ${spot.y.toStringAsFixed(0)}',
                                   style: TextStyle(
                                     color: isRevenue
                                         ? const Color(0xFF14B8A6)
@@ -170,15 +171,15 @@ class MonthlyChartCard extends StatelessWidget {
             // Legend
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 _LegendItem(
-                  color: Color(0xFF14B8A6),
-                  label: 'الإيرادات (بالآلاف)',
+                  color: const Color(0xFF14B8A6),
+                  label: AppLocalizations.of(context).revenueThousands,
                 ),
-                SizedBox(width: 24),
+                const SizedBox(width: 24),
                 _LegendItem(
-                  color: Color(0xFFFB923C),
-                  label: 'الطلبات',
+                  color: const Color(0xFFFB923C),
+                  label: AppLocalizations.of(context).orders,
                 ),
               ],
             ),

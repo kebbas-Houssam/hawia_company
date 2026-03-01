@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/order_models.dart' as models;
 import '../providers/orders_provider.dart';
 import '../widgets/order_details_modal.dart';
@@ -11,10 +12,11 @@ class CancelledOrdersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ordersState = ref.watch(cancelledOrdersProvider);
+    final loc = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات الملغية'),
+        title: Text(loc.cancelledOrders),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -36,7 +38,7 @@ class CancelledOrdersScreen extends ConsumerWidget {
                           onPressed: () => ref
                               .read(cancelledOrdersProvider.notifier)
                               .fetchOrders(),
-                          child: const Text('إعادة المحاولة'),
+                          child: Text(loc.retry),
                         ),
                       ],
                     ),
@@ -50,7 +52,7 @@ class CancelledOrdersScreen extends ConsumerWidget {
                                 size: 64, color: Colors.grey[400]),
                             const SizedBox(height: 16),
                             Text(
-                              'لا توجد طلبات ملغية',
+                              loc.noCancelledOrders,
                               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                             ),
                           ],
@@ -75,6 +77,7 @@ class _OrderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd/MM/yyyy HH:mm', 'ar');
+    final loc = AppLocalizations.of(context);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -117,8 +120,8 @@ class _OrderCard extends StatelessWidget {
                     color: const Color(0xFFF44336).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'ملغي',
+                  child: Text(
+                    loc.cancelled,
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFFF44336),
@@ -165,7 +168,7 @@ class _OrderCard extends StatelessWidget {
                   const Icon(Icons.event_busy, size: 16, color: Colors.grey),
                   const SizedBox(width: 8),
                   Text(
-                    'تاريخ الإلغاء: ${dateFormat.format(order.cancelledAt!)}',
+                    '${loc.cancellationDate}: ${dateFormat.format(order.cancelledAt!)}',
                     style: const TextStyle(fontSize: 13),
                   ),
                 ],
@@ -190,7 +193,7 @@ class _OrderCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'سبب الإلغاء:',
+                            '${loc.cancellationReason}:',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,

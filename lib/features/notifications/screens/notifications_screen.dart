@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/notification_models.dart';
 import '../providers/notification_providers.dart';
 
@@ -29,9 +30,10 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen>
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الإشعارات'),
+        title: Text(loc.notifications),
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -39,9 +41,9 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen>
         ),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [
-            Tab(text: 'الطلبات', icon: Icon(Icons.shopping_cart, size: 20)),
-            Tab(text: 'الرسائل والتقييمات', icon: Icon(Icons.message, size: 20)),
+          tabs: [
+            Tab(text: loc.orderNotifications, icon: const Icon(Icons.shopping_cart, size: 20)),
+            Tab(text: loc.messagesAndRatings, icon: const Icon(Icons.message, size: 20)),
           ],
           onTap: (index) {
             // Load data when tab is tapped if not loaded yet
@@ -135,7 +137,7 @@ class _OrderNotificationsTabState extends ConsumerState<_OrderNotificationsTab> 
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () => ref.read(adminNotificationsProvider.notifier).loadNotifications(),
-                child: const Text('إعادة المحاولة'),
+                child: Text(AppLocalizations.of(context).retry),
               ),
             ],
           ),
@@ -144,7 +146,7 @@ class _OrderNotificationsTabState extends ConsumerState<_OrderNotificationsTab> 
     }
 
     if (state.notifications.isEmpty && !state.isLoading) {
-      return _buildEmptyState('لا توجد إشعارات طلبات');
+      return _buildEmptyState(AppLocalizations.of(context).noOrderNotifications, AppLocalizations.of(context).newNotificationsAppearHere);
     }
 
     return RefreshIndicator(
@@ -252,7 +254,7 @@ class _GeneralNotificationsTabState extends ConsumerState<_GeneralNotificationsT
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () => ref.read(generalNotificationsProvider.notifier).loadNotifications(),
-                child: const Text('إعادة المحاولة'),
+                child: Text(AppLocalizations.of(context).retry),
               ),
             ],
           ),
@@ -261,7 +263,7 @@ class _GeneralNotificationsTabState extends ConsumerState<_GeneralNotificationsT
     }
 
     if (state.notifications.isEmpty && !state.isLoading) {
-      return _buildEmptyState('لا توجد رسائل أو تقييمات');
+      return _buildEmptyState(AppLocalizations.of(context).noMessagesOrRatings, AppLocalizations.of(context).newNotificationsAppearHere);
     }
 
     return RefreshIndicator(
@@ -290,7 +292,7 @@ class _GeneralNotificationsTabState extends ConsumerState<_GeneralNotificationsT
   }
 }
 
-Widget _buildEmptyState(String message) {
+Widget _buildEmptyState(String message, String subtitle) {
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -311,7 +313,7 @@ Widget _buildEmptyState(String message) {
         ),
         const SizedBox(height: 8),
         Text(
-          'ستظهر الإشعارات الجديدة هنا',
+          subtitle,
           style: TextStyle(
             fontSize: 14,
             color: Colors.grey[500],
@@ -435,7 +437,7 @@ class _OrderNotificationCard extends StatelessWidget {
                                   Icon(Icons.receipt_long, size: 14, color: Colors.grey[700]),
                                   const SizedBox(width: 4),
                                   Text(
-                                    'طلب #${notification.globalOrder!.orderNumber}',
+                                    '${AppLocalizations.of(context).orderHashPrefix}${notification.globalOrder!.orderNumber}',
                                     style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.grey[700],

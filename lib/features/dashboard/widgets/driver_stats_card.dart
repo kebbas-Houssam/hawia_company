@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/dashboard_stats.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class DriverStatsCard extends StatelessWidget {
   final DriverStats stats;
@@ -19,15 +20,15 @@ class DriverStatsCard extends StatelessWidget {
             // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Icon(
+              children: [
+                const Icon(
                   Icons.local_shipping_outlined,
                   size: 32,
                   color: Colors.white,
                 ),
                 Text(
-                  'إحصائيات السائقين',
-                  style: TextStyle(
+                  AppLocalizations.of(context).driverStats,
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -61,9 +62,9 @@ class DriverStatsCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'عدد السائقين',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      Text(
+                        AppLocalizations.of(context).totalDrivers,
+                        style: const TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ],
                   ),
@@ -88,9 +89,9 @@ class DriverStatsCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'نسبة الإنجاز',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      Text(
+                        AppLocalizations.of(context).completionRate,
+                        style: const TextStyle(fontSize: 14, color: Colors.white),
                       ),
                       const SizedBox(height: 8),
 

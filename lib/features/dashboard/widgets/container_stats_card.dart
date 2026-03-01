@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/dashboard_stats.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class ContainerStatsCard extends StatelessWidget {
   final ContainerStats stats;
@@ -24,9 +25,9 @@ class ContainerStatsCard extends StatelessWidget {
                   size: 32,
                   color: Colors.grey[700],
                 ),
-                const Text(
-                  'إحصائيات الحاويات',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Text(
+                  AppLocalizations.of(context).containerStats,
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -38,17 +39,17 @@ class ContainerStatsCard extends StatelessWidget {
               children: [
                 _StatItem(
                   value: stats.total.toString(),
-                  label: 'الإجمالي',
+                  label: AppLocalizations.of(context).totalContainers,
                   color: Colors.grey[700]!,
                 ),
                 _StatItem(
                   value: stats.rented.toString(),
-                  label: 'المؤجرة',
+                  label: AppLocalizations.of(context).rentedContainers,
                   color: const Color(0xFF0E7C69),
                 ),
                 _StatItem(
                   value: stats.available.toString(),
-                  label: 'المتوفرة',
+                  label: AppLocalizations.of(context).availableContainers,
                   color: const Color(0xFF0E7C69),
                 ),
               ],

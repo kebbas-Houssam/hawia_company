@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/container_models.dart' as models;
 import '../providers/containers_provider.dart';
 import '../services/containers_api_service.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class EditContainerStatusSheet extends ConsumerStatefulWidget {
   final String type;
@@ -69,10 +70,10 @@ class _EditContainerStatusSheetState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'إدارة الحاويات',
-                            style: TextStyle(
+                            AppLocalizations.of(context).manageContainersSheet,
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -130,7 +131,7 @@ class _EditContainerStatusSheetState
                             children: [
                               Expanded(
                                 child: Text(
-                                  'تم تحديد ${selectedIds.length} من ${_getFilteredContainers(detailsState.details!).length} حاوية',
+                                '${AppLocalizations.of(context).selectedXOfY} ${selectedIds.length} ${AppLocalizations.of(context).ofWord} ${_getFilteredContainers(detailsState.details!).length} ${AppLocalizations.of(context).containerWord}',
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14,
@@ -144,14 +145,14 @@ class _EditContainerStatusSheetState
                                     style: TextButton.styleFrom(
                                       padding: const EdgeInsets.symmetric(horizontal: 8),
                                     ),
-                                    child: const Text('تحديد الكل'),
+                                    child: Text(AppLocalizations.of(context).selectAll),
                                   ),
                                   TextButton(
                                     onPressed: _deselectAll,
                                     style: TextButton.styleFrom(
                                       padding: const EdgeInsets.symmetric(horizontal: 8),
                                     ),
-                                    child: const Text('إلغاء'),
+                                    child: Text(AppLocalizations.of(context).cancel),
                                   ),
                                 ],
                               ),
@@ -212,7 +213,7 @@ class _EditContainerStatusSheetState
                               DropdownButtonFormField<String>(
                                 value: newStatus,
                                 decoration: InputDecoration(
-                                  labelText: 'اختر الحالة الجديدة',
+                                  labelText: AppLocalizations.of(context).selectNewStatus,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -222,18 +223,18 @@ class _EditContainerStatusSheetState
                                   ),
                                   isDense: true,
                                 ),
-                                items: const [
+                                items: [
                                   DropdownMenuItem(
                                     value: 'available',
-                                    child: Text('متاح'),
+                                    child: Text(AppLocalizations.of(context).available),
                                   ),
                                   DropdownMenuItem(
                                     value: 'rented',
-                                    child: Text('مؤجرة'),
+                                    child: Text(AppLocalizations.of(context).rented),
                                   ),
                                   DropdownMenuItem(
                                     value: 'maintenance',
-                                    child: Text('صيانة'),
+                                    child: Text(AppLocalizations.of(context).maintenance),
                                   ),
                                 ],
                                 onChanged: (value) =>
@@ -261,7 +262,7 @@ class _EditContainerStatusSheetState
                                             color: Colors.white,
                                           ),
                                         )
-                                      : const Text('تغيير الحالة'),
+                                      : Text(AppLocalizations.of(context).changeStatus),
                                 ),
                               ),
                             ],
@@ -291,13 +292,13 @@ class _EditContainerStatusSheetState
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
           children: [
-            _buildTabChip('all', 'الكل', allCount),
+            _buildTabChip('all', AppLocalizations.of(context).all, allCount),
             const SizedBox(width: 8),
-            _buildTabChip('available', 'متاح', availableCount),
+            _buildTabChip('available', AppLocalizations.of(context).available, availableCount),
             const SizedBox(width: 8),
-            _buildTabChip('rented', 'مؤجرة', rentedCount),
+            _buildTabChip('rented', AppLocalizations.of(context).rented, rentedCount),
             const SizedBox(width: 8),
-            _buildTabChip('maintenance', 'صيانة', maintenanceCount),
+            _buildTabChip('maintenance', AppLocalizations.of(context).maintenance, maintenanceCount),
           ],
         ),
       ),
@@ -326,8 +327,8 @@ class _EditContainerStatusSheetState
     final containers = _getFilteredContainers(details);
 
     if (containers.isEmpty) {
-      return const Center(
-        child: Text('لا توجد حاويات في هذه الفئة'),
+      return Center(
+        child: Text(AppLocalizations.of(context).noContainers),
       );
     }
 
@@ -497,7 +498,7 @@ class _EditContainerStatusSheetState
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('تم تحديث الحالة بنجاح')),
+          SnackBar(content: Text(AppLocalizations.of(context).changeStatus)),
         );
       }
 

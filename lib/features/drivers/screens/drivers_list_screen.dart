@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../providers/drivers_provider.dart';
 import '../widgets/driver_card.dart';
 import '../widgets/empty_drivers_state.dart';
@@ -63,7 +64,7 @@ class _DriversListScreenState extends ConsumerState<DriversListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('إدارة السائقين'),
+        title: Text(AppLocalizations.of(context).manageDrivers),
         actions: [
           IconButton(
             onPressed: _showAddDriverDialog,
@@ -111,7 +112,7 @@ class _DriversListScreenState extends ConsumerState<DriversListScreen> {
             ElevatedButton(
               onPressed: () =>
                   ref.read(driversProvider.notifier).fetchDrivers(),
-              child: const Text('إعادة المحاولة'),
+              child: Text(AppLocalizations.of(context).retry),
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/order_models.dart' as models;
 import '../providers/orders_provider.dart';
 import '../widgets/submit_offer_dialog.dart';
@@ -74,9 +75,10 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
       filteredOrders.sort((a, b) => a.containerType.compareTo(b.containerType));
     }
 
+    final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات المتاحة'),
+        title: Text(loc.availableOrders),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -94,17 +96,17 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
               setState(() => _sortBy = value);
             },
             itemBuilder: (context) => [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'distance',
-                child: Text('ترتيب حسب المسافة'),
+                child: Text(loc.sortByDistance),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'date',
-                child: Text('ترتيب حسب التاريخ'),
+                child: Text(loc.sortByDate),
               ),
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 'type',
-                child: Text('ترتيب حسب النوع'),
+                child: Text(loc.sortByType),
               ),
             ],
           ),
@@ -136,7 +138,7 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                                 .read(pendingOrdersProvider.notifier)
                                 .fetchOrders();
                           },
-                          child: const Text('إعادة المحاولة'),
+                          child: Text(loc.retry),
                         ),
                       ],
                     ),
@@ -150,7 +152,7 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                                 size: 64, color: Colors.grey[400]),
                             const SizedBox(height: 16),
                             Text(
-                              'لا توجد طلبات متاحة حالياً',
+                              loc.noAvailableOrdersNow,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey[600],
@@ -187,18 +189,18 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
         return StatefulBuilder(
           builder: (context, setDialogState) {
             return AlertDialog(
-              title: const Text('تصفية الطلبات'),
+              title: Text(AppLocalizations.of(context).filterOrders),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   DropdownButtonFormField<String>(
                     value: tempTypeFilter,
-                    decoration: const InputDecoration(
-                      labelText: 'نوع الحاوية',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).containerType,
+                      border: const OutlineInputBorder(),
                     ),
-                    items: const [
-                      DropdownMenuItem(value: null, child: Text('الكل')),
+                    items: [
+                      DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context).all)),
                       DropdownMenuItem(value: 'دباب', child: Text('دباب')),
                       DropdownMenuItem(value: 'صهريج', child: Text('صهريج')),
                     ],
@@ -209,12 +211,12 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                   const SizedBox(height: 16),
                   DropdownButtonFormField<String>(
                     value: tempSizeFilter,
-                    decoration: const InputDecoration(
-                      labelText: 'الحجم',
-                      border: OutlineInputBorder(),
+                    decoration: InputDecoration(
+                      labelText: AppLocalizations.of(context).size,
+                      border: const OutlineInputBorder(),
                     ),
-                    items: const [
-                      DropdownMenuItem(value: null, child: Text('الكل')),
+                    items: [
+                      DropdownMenuItem(value: null, child: Text(AppLocalizations.of(context).all)),
                       DropdownMenuItem(value: '10 متر', child: Text('10 متر')),
                       DropdownMenuItem(
                           value: '5000 لتر', child: Text('5000 لتر')),
@@ -234,11 +236,11 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                     });
                     Navigator.pop(context);
                   },
-                  child: const Text('إعادة تعيين'),
+                  child: Text(AppLocalizations.of(context).reset),
                 ),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
-                  child: const Text('إلغاء'),
+                  child: Text(AppLocalizations.of(context).cancel),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -248,7 +250,7 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                     });
                     Navigator.pop(context);
                   },
-                  child: const Text('تطبيق'),
+                  child: Text(AppLocalizations.of(context).apply),
                 ),
               ],
             );
@@ -306,39 +308,39 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                 const SizedBox(height: 20),
                 _DetailRow(
                   icon: Icons.inbox,
-                  label: 'نوع الحاوية',
+                  label: AppLocalizations.of(context).containerType,
                   value: '${order.containerType} - ${order.containerSize}',
                 ),
                 _DetailRow(
                   icon: Icons.event,
-                  label: 'نوع الإيجار',
+                  label: AppLocalizations.of(context).rentalType,
                   value: order.rentalTypeLabel,
                 ),
                 _DetailRow(
                   icon: Icons.calendar_today,
-                  label: 'تاريخ التوصيل',
+                  label: AppLocalizations.of(context).deliveryDate,
                   value: dateFormat.format(order.deliveryDate),
                 ),
                 _DetailRow(
                   icon: Icons.location_on,
-                  label: 'العنوان',
-                  value: order.deliveryLocation.address ?? 'غير محدد',
+                  label: AppLocalizations.of(context).address,
+                  value: order.deliveryLocation.address ?? AppLocalizations.of(context).unspecified,
                 ),
                 _DetailRow(
                   icon: Icons.route,
-                  label: 'المسافة',
+                  label: AppLocalizations.of(context).distance,
                   value: order.distanceLabel,
                 ),
                 if (order.customerName != null)
                   _DetailRow(
                     icon: Icons.person,
-                    label: 'العميل',
+                    label: AppLocalizations.of(context).customer,
                     value: order.customerName!,
                   ),
                 if (order.customerPhone != null)
                   _DetailRow(
                     icon: Icons.phone,
-                    label: 'الهاتف',
+                    label: AppLocalizations.of(context).phone,
                     value: order.customerPhone!,
                   ),
                 const SizedBox(height: 20),
@@ -353,7 +355,7 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
-                      child: const Text('تقديم عرض'),
+                      child: Text(AppLocalizations.of(context).submitOffer),
                     ),
                   )
                 else
@@ -368,9 +370,9 @@ class _PendingOrdersScreenState extends ConsumerState<PendingOrdersScreen>
                       children: [
                         Icon(Icons.check_circle, color: Colors.green[700]),
                         const SizedBox(width: 8),
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'تم تقديم عرض لهذا الطلب',
+                            AppLocalizations.of(context).offerSubmittedForOrder,
                             style: TextStyle(fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -464,7 +466,7 @@ class _OrderCard extends StatelessWidget {
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
-                      order.deliveryLocation.address ?? 'غير محدد',
+                      order.deliveryLocation.address ?? AppLocalizations.of(context).unspecified,
                       style: const TextStyle(fontSize: 14),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -535,9 +537,9 @@ class _OrderCard extends StatelessWidget {
                     children: [
                       Icon(Icons.check_circle, size: 16, color: Colors.green[700]),
                       const SizedBox(width: 4),
-                      const Text(
-                        'مقدم عرض',
-                        style: TextStyle(
+                      Text(
+                        AppLocalizations.of(context).offerSubmitted,
+                        style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
@@ -550,7 +552,7 @@ class _OrderCard extends StatelessWidget {
                   width: double.infinity,
                   child: OutlinedButton(
                     onPressed: onSubmitOffer,
-                    child: const Text('تقديم عرض'),
+                    child: Text(AppLocalizations.of(context).submitOffer),
                   ),
                 ),
             ],

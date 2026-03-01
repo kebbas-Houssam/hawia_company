@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../providers/dashboard_provider.dart';
 import '../widgets/container_stats_card.dart';
 import '../widgets/order_stats_card.dart';
@@ -24,10 +25,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     final dashboardState = ref.watch(dashboardProvider);
+    final loc = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('لوحة التحكم'),
+        title: Text(loc.dashboardTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -78,6 +80,7 @@ class _ErrorView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -86,9 +89,9 @@ class _ErrorView extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, size: 64, color: Colors.red),
             const SizedBox(height: 16),
-            const Text(
-              'خطأ في تحميل البيانات',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              loc.errorLoadingData,
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
@@ -100,7 +103,7 @@ class _ErrorView extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: const Text('إعادة المحاولة'),
+              label: Text(loc.retry),
             ),
           ],
         ),

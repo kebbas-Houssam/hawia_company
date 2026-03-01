@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../models/order_models.dart' as models;
 import '../providers/orders_provider.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class SubmitOfferDialog extends ConsumerStatefulWidget {
   final models.PendingOrder order;
@@ -57,11 +58,11 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                 children: [
                   // Title
                   Row(
-                    children: const [
-                      Icon(Icons.local_offer, color: Colors.blue),
-                      SizedBox(width: 8),
+                    children: [
+                      const Icon(Icons.local_offer, color: Colors.blue),
+                      const SizedBox(width: 8),
                       Text(
-                        'تقديم عرض',
+                        AppLocalizations.of(context).submitOfferTitle,
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -95,7 +96,7 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                           style: const TextStyle(fontSize: 14),
                         ),
                         Text(
-                          'التوصيل: ${dateFormat.format(widget.order.deliveryDate)}',
+                          '${AppLocalizations.of(context).delivery}: ${dateFormat.format(widget.order.deliveryDate)}',
                           style: const TextStyle(fontSize: 13),
                         ),
                         const SizedBox(height: 6),
@@ -113,7 +114,7 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
-                                'نوع الإيجار: ${widget.order.rentalTypeLabel}',
+                                '${AppLocalizations.of(context).rentalType}: ${widget.order.rentalTypeLabel}',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Theme.of(context).primaryColor,
@@ -144,7 +145,7 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                                     ),
                                     const SizedBox(width: 4),
                                     Text(
-                                      '${widget.order.unloadCount} عملية تفريغ',
+                                      '${widget.order.unloadCount} ${AppLocalizations.of(context).unloadOperations}',
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: Colors.orange,
@@ -166,7 +167,7 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                   TextFormField(
                     controller: _priceController,
                     decoration: InputDecoration(
-                      labelText: 'السعر الأساسي (ريال)',
+                      labelText: AppLocalizations.of(context).basePriceSAR,
                       prefixIcon: const Icon(Icons.attach_money),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -180,11 +181,11 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'الرجاء إدخال السعر';
+                        return AppLocalizations.of(context).pleaseEnterPrice;
                       }
                       final price = double.tryParse(value);
                       if (price == null || price <= 0) {
-                        return 'الرجاء إدخال سعر صحيح';
+                        return AppLocalizations.of(context).pleaseEnterValidPrice;
                       }
                       return null;
                     },
@@ -197,9 +198,9 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                     TextFormField(
                       controller: _durationController,
                       decoration: InputDecoration(
-                        labelText: 'مدة الإيجار (أيام)',
+                        labelText: AppLocalizations.of(context).rentalDurationDays,
                         prefixIcon: const Icon(Icons.calendar_today),
-                        helperText: 'مطلوب لنوع "لمرة واحدة"',
+                        helperText: AppLocalizations.of(context).requiredForOnce,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -212,13 +213,13 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'الرجاء إدخال مدة الإيجار';
+                          return AppLocalizations.of(context).pleaseEnterDuration;
                         }
                         final duration = int.tryParse(value);
                         if (duration == null ||
                             duration <= 0 ||
                             duration > 365) {
-                          return 'المدة يجب أن تكون بين 1 و 365 يوم';
+                          return AppLocalizations.of(context).durationRange;
                         }
                         return null;
                       },
@@ -269,9 +270,9 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
-                          child: const Text(
-                            'إلغاء',
-                            style: TextStyle(fontSize: 16),
+                          child: Text(
+                            AppLocalizations.of(context).cancel,
+                            style: const TextStyle(fontSize: 16),
                           ),
                         ),
                       ),
@@ -295,9 +296,9 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
                                       color: Colors.white,
                                     ),
                                   )
-                                  : const Text(
-                                    'تقديم العرض',
-                                    style: TextStyle(fontSize: 16),
+                                  : Text(
+                                    AppLocalizations.of(context).submitOfferBtn,
+                                    style: const TextStyle(fontSize: 16),
                                   ),
                         ),
                       ),
@@ -337,8 +338,8 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
       if (success) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('✅ تم تقديم العرض بنجاح'),
+          SnackBar(
+            content: Text('✅ ${AppLocalizations.of(context).offerSubmittedSuccess}'),
             backgroundColor: Colors.green,
           ),
         );
@@ -347,11 +348,11 @@ class _SubmitOfferDialogState extends ConsumerState<SubmitOfferDialog> {
       if (!mounted) return;
       setState(() {
         // Extract meaningful error message
-        String errorMsg = 'فشل تقديم العرض';
+        String errorMsg = AppLocalizations.of(context).offerSubmitFailed;
         if (e.toString().contains('500')) {
-          errorMsg = 'خطأ في الخادم. الرجاء المحاولة لاحقاً';
+          errorMsg = AppLocalizations.of(context).serverError;
         } else if (e.toString().contains('400')) {
-          errorMsg = 'بيانات غير صحيحة. تحقق من المدخلات';
+          errorMsg = AppLocalizations.of(context).invalidData;
         } else {
           errorMsg = e.toString();
         }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/order_models.dart' as models;
 import '../providers/orders_provider.dart';
 import '../../drivers/providers/drivers_provider.dart';
@@ -32,10 +33,11 @@ class _SubOrdersScreenState extends ConsumerState<SubOrdersScreen>
   @override
   Widget build(BuildContext context) {
     final subOrdersState = ref.watch(subOrdersProvider);
+    final loc = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات الفرعية'),
+        title: Text(loc.subOrdersTitle),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
@@ -43,7 +45,7 @@ class _SubOrdersScreenState extends ConsumerState<SubOrdersScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('تفريغ 🗑️'),
+                  Text(loc.unload),
                   const SizedBox(width: 4),
                   if (subOrdersState.unloadOrders.isNotEmpty)
                     _Badge(count: subOrdersState.unloadOrders.length),
@@ -54,7 +56,7 @@ class _SubOrdersScreenState extends ConsumerState<SubOrdersScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('إرجاع ↩️'),
+                  Text(loc.returnOrder),
                   const SizedBox(width: 4),
                   if (subOrdersState.returnOrders.isNotEmpty)
                     _Badge(count: subOrdersState.returnOrders.length),
@@ -77,11 +79,11 @@ class _SubOrdersScreenState extends ConsumerState<SubOrdersScreen>
                     children: [
                       _SubOrdersList(
                         subOrders: subOrdersState.unloadOrders,
-                        emptyMessage: 'لا توجد طلبات تفريغ',
+                        emptyMessage: loc.noUnloadOrders,
                       ),
                       _SubOrdersList(
                         subOrders: subOrdersState.returnOrders,
-                        emptyMessage: 'لا توجد طلبات إرجاع',
+                        emptyMessage: loc.noReturnOrders,
                       ),
                     ],
                   ),
@@ -129,7 +131,7 @@ class _ErrorView extends ConsumerWidget {
           ElevatedButton(
             onPressed: () =>
                 ref.read(subOrdersProvider.notifier).fetchSubOrders(),
-            child: const Text('إعادة المحاولة'),
+            child: Text(AppLocalizations.of(context).retry),
           ),
         ],
       ),
@@ -205,7 +207,7 @@ class _SubOrderCard extends ConsumerWidget {
                         _showDriverAssignmentDialog(context, ref);
                       },
                       icon: Icon(hasDriver ? Icons.swap_horiz : Icons.person_add),
-                      label: Text(hasDriver ? 'تغيير السائق' : 'تعيين سائق'),
+                      label: Text(hasDriver ? AppLocalizations.of(context).changeDriver : AppLocalizations.of(context).assignDriver),
                     ),
                   )
                 : null,
@@ -225,7 +227,7 @@ class _SubOrderCard extends ConsumerWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    '${subOrder.type.subOrderTypeLabel} - ${subOrder.order.container?.containerNumber ?? 'غير محدد'}',
+                    '${subOrder.type.subOrderTypeLabel} - ${subOrder.order.container?.containerNumber ?? AppLocalizations.of(context).unspecified}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -258,11 +260,11 @@ class _SubOrderCard extends ConsumerWidget {
               ),
             _InfoRow(
               icon: Icons.location_on,
-              text: subOrder.order.deliveryLocation.address ?? 'غير محدد',
+              text: subOrder.order.deliveryLocation.address ?? AppLocalizations.of(context).unspecified,
             ),
             _InfoRow(
               icon: Icons.calendar_today,
-              text: 'تاريخ التسليم: ${dateFormat.format(subOrder.deliveryDate)}',
+              text: '${AppLocalizations.of(context).deliveryDateLabel}: ${dateFormat.format(subOrder.deliveryDate)}',
             ),
             if (subOrder.driver != null) ...[
               const SizedBox(height: 8),
@@ -294,7 +296,7 @@ class _SubOrderCard extends ConsumerWidget {
                 child: ElevatedButton.icon(
                   onPressed: () => _showDriverAssignmentDialog(context, ref),
                   icon: Icon(hasDriver ? Icons.swap_horiz : Icons.person_add),
-                  label: Text(hasDriver ? 'تغيير السائق' : 'تعيين سائق'),
+                  label: Text(hasDriver ? AppLocalizations.of(context).changeDriver : AppLocalizations.of(context).assignDriver),
                 ),
               )
             else
@@ -304,11 +306,11 @@ class _SubOrderCard extends ConsumerWidget {
                     child: OutlinedButton.icon(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('ميزة التتبع قريباً')),
+                          SnackBar(content: Text(AppLocalizations.of(context).trackingComingSoon)),
                         );
                       },
                       icon: const Icon(Icons.map),
-                      label: const Text('تتبع'),
+                      label: Text(AppLocalizations.of(context).track),
                     ),
                   ),
                 ],
@@ -368,7 +370,7 @@ class _DriverSelectionDialogState
         .toList();
 
     return AlertDialog(
-      title: const Text('تعيين سائق'),
+      title: Text(AppLocalizations.of(context).assignDriver),
       content: SizedBox(
         width: double.maxFinite,
         child: Column(
@@ -376,7 +378,7 @@ class _DriverSelectionDialogState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'الطلب: ${widget.subOrderLabel}',
+              '${AppLocalizations.of(context).orderPrefix}: ${widget.subOrderLabel}',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 16),
@@ -388,12 +390,12 @@ class _DriverSelectionDialogState
                 ),
               )
             else if (drivers.isEmpty)
-              const Center(
+              Center(
                 child: Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
-                    'لا يوجد سائقين متاحين حالياً',
-                    style: TextStyle(color: Colors.grey),
+                    AppLocalizations.of(context).noDriversAvailable,
+                    style: const TextStyle(color: Colors.grey),
                   ),
                 ),
               )
@@ -413,7 +415,7 @@ class _DriverSelectionDialogState
                         setState(() => _selectedDriverId = value);
                       },
                       title: Text(driver.name),
-                      subtitle: Text('رقم الهوية: ${driver.identityNumber}'),
+                      subtitle: Text('${AppLocalizations.of(context).identityNumber}: ${driver.identityNumber}'),
                     );
                   },
                 ),
@@ -424,7 +426,7 @@ class _DriverSelectionDialogState
       actions: [
         TextButton(
           onPressed: _isAssigning ? null : () => Navigator.pop(context),
-          child: const Text('إلغاء'),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _selectedDriverId == null || _isAssigning
@@ -439,7 +441,7 @@ class _DriverSelectionDialogState
                     color: Colors.white,
                   ),
                 )
-              : const Text('تعيين'),
+              : Text(AppLocalizations.of(context).assign),
         ),
       ],
     );

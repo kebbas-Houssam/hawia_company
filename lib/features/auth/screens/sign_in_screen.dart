@@ -11,6 +11,7 @@ import '../../../shared/terms_and_conditions_page.dart';
 import '../../../shared/privacy_policy_page.dart';
 import '../../../core/config/app_theme.dart';
 import '../../../core/services/storage_service.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -73,8 +74,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   void _handleSignIn() async {
     if (!_agreedToTerms) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يجب الموافقة على شروط الخدمة وسياسة الخصوصية'),
+        SnackBar(
+          content: Text(AppLocalizations.of(context).mustAgreeToTerms),
           backgroundColor: Colors.red,
         ),
       );
@@ -142,9 +143,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 const SizedBox(height: 20),
                 
                 // Title
-                const Text(
-                  'تسجيل الدخول',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).signInTitle,
+                  style: const TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: AppColors.primary,
@@ -154,9 +155,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 
                 const SizedBox(height: 8),
                 
-                const Text(
-                  'مرحباً بك مرة أخرى',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).welcomeBack,
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
                   ),
@@ -183,9 +184,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'حساب محفوظ',
-                                style: TextStyle(
+                              Text(
+                                AppLocalizations.of(context).savedAccount,
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                 ),
@@ -202,9 +203,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                         ),
                         TextButton(
                           onPressed: _clearSavedCredentials,
-                          child: const Text(
-                            'استخدام حساب آخر',
-                            style: TextStyle(fontSize: 12),
+                          child: Text(
+                            AppLocalizations.of(context).useAnotherAccount,
+                            style: const TextStyle(fontSize: 12),
                           ),
                         ),
                       ],
@@ -217,13 +218,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 
                 // Domain Field
                 CustomTextField(
-                  label: 'الرقم التعريفي للشركة',
+                  label: AppLocalizations.of(context).companyIdLabel,
                   hint: '0123456789',
                   controller: _domainController,
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'الرجاء إدخال الرقم التعريفي';
+                      return AppLocalizations.of(context).pleaseEnterCompanyId;
                     }
                     return null;
                   },
@@ -233,16 +234,16 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 
                 // Email Field
                 CustomTextField(
-                  label: 'البريد الإلكتروني للمسؤول',
-                  hint: 'أدخل البريد الإلكتروني',
+                  label: AppLocalizations.of(context).adminEmailLabel,
+                  hint: AppLocalizations.of(context).enterEmail,
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'الرجاء إدخال البريد الإلكتروني';
+                      return AppLocalizations.of(context).pleaseEnterEmail;
                     }
                     if (!value.contains('@')) {
-                      return 'الرجاء إدخال بريد إلكتروني صحيح';
+                      return AppLocalizations.of(context).pleaseEnterValidEmail;
                     }
                     return null;
                   },
@@ -252,13 +253,13 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 
                 // Password Field
                 CustomTextField(
-                  label: 'كلمة سر المسؤول',
-                  hint: 'أدخل كلمة المرور',
+                  label: AppLocalizations.of(context).adminPasswordLabel,
+                  hint: AppLocalizations.of(context).enterPassword,
                   controller: _passwordController,
                   isPassword: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'الرجاء إدخال كلمة المرور';
+                      return AppLocalizations.of(context).pleaseEnterPassword;
                     }
                     return null;
                   },
@@ -277,9 +278,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                       },
                       activeColor: AppColors.primary,
                     ),
-                    const Text(
-                      'حفظ معلومات الدخول',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context).saveLoginInfo,
+                      style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black87,
                       ),
@@ -312,9 +313,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                               fontFamily: 'Tajawal',
                             ),
                             children: [
-                              const TextSpan(text: 'أوافق على '),
+                              TextSpan(text: '${AppLocalizations.of(context).iAgreeToTerms} '),
                               TextSpan(
-                                text: 'شروط الخدمة',
+                                text: AppLocalizations.of(context).termsOfService,
                                 style: const TextStyle(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.bold,
@@ -330,9 +331,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                                     );
                                   },
                               ),
-                              const TextSpan(text: ' و '),
+                              TextSpan(text: ' ${AppLocalizations.of(context).and} '),
                               TextSpan(
-                                text: 'سياسة الخصوصية',
+                                text: AppLocalizations.of(context).privacyPolicy,
                                 style: const TextStyle(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.bold,
@@ -362,7 +363,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                 
                 // Sign In Button
                 LoadingButton(
-                  text: 'تسجيل الدخول',
+                  text: AppLocalizations.of(context).signInTitle,
                   isLoading: authState.isLoading,
                   onPressed: _handleSignIn,
                 ),
@@ -374,15 +375,15 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   child: GestureDetector(
                     onTap: () => context.go('/signup'),
                     child: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(
+                      text: TextSpan(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Colors.black54,
                         ),
                         children: [
-                          TextSpan(text: 'ليس لديك حساب؟ '),
+                          TextSpan(text: '${AppLocalizations.of(context).noAccountYet} '),
                           TextSpan(
-                            text: 'إنشاء حساب جديد',
+                            text: AppLocalizations.of(context).createNewAccountLink,
                             style: TextStyle(
                               color: AppColors.primary,
                               fontWeight: FontWeight.w600,
@@ -435,7 +436,7 @@ class _BanDetailsCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                banDetails.isPermanent ? 'حظر دائم' : 'حظر مؤقت',
+                banDetails.isPermanent ? AppLocalizations.of(context).permanentBan : AppLocalizations.of(context).temporaryBan,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -466,9 +467,9 @@ class _BanDetailsCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'سبب الحظر:',
-                style: TextStyle(
+              Text(
+                '${AppLocalizations.of(context).banReason}:',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                 ),

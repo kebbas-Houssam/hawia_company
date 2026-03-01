@@ -4,6 +4,7 @@ import '../providers/driver_details_provider.dart';
 import '../models/driver.dart';
 import '../models/driver_details.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../../../shared/widgets/status_badge.dart';
 
 class DriverDetailsScreen extends ConsumerStatefulWidget {
@@ -35,7 +36,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
   }
 
   String _formatIdentityNumber(String? number) {
-    if (number == null || number.isEmpty) return 'غير متوفر';
+    if (number == null || number.isEmpty) return AppLocalizations.of(context).notAvailable;
     // Format: 1 2345 67890
     if (number.length == 10) {
       return '${number[0]} ${number.substring(1, 5)} ${number.substring(5)}';
@@ -49,7 +50,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('حول السائق'),
+        title: Text(AppLocalizations.of(context).aboutDriver),
       ),
       body: _buildBody(detailsState),
     );
@@ -68,7 +69,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
             Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
             const SizedBox(height: 16),
             Text(
-              'خطأ في تحميل بيانات السائق',
+              AppLocalizations.of(context).errorLoadingDriverData,
               style: TextStyle(fontSize: 18, color: Colors.grey[700]),
             ),
             const SizedBox(height: 8),
@@ -82,7 +83,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
               onPressed: () => ref
                   .read(driverDetailsProvider.notifier)
                   .fetchDriverDetails(widget.driverId),
-              child: const Text('إعادة المحاولة'),
+              child: Text(AppLocalizations.of(context).retry),
             ),
           ],
         ),
@@ -90,8 +91,8 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
     }
 
     if (state.details == null) {
-      return const Center(
-        child: Text('لم يتم العثور على بيانات السائق'),
+      return Center(
+        child: Text(AppLocalizations.of(context).driverNotFound),
       );
     }
 
@@ -150,18 +151,18 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
                       ),
                       const SizedBox(height: 8),
                       _buildInfoRow(
-                        'رقم الهوية',
+                        AppLocalizations.of(context).identityNumber,
                         _formatIdentityNumber(driver.identityNumber),
                       ),
                       const SizedBox(height: 4),
                       Directionality(
                         textDirection: TextDirection.rtl,
-                        child: _buildInfoRow('الهاتف', driver.phone),
+                        child: _buildInfoRow(AppLocalizations.of(context).phone, driver.phone),
                       ),
                       const SizedBox(height: 4),
                       _buildInfoRow(
-                        'البريد الإلكتروني',
-                        driver.email ?? 'غير محدد',
+                        AppLocalizations.of(context).email,
+                        driver.email ?? AppLocalizations.of(context).unspecified,
                       ),
                       const SizedBox(height: 8),
                       StatusBadge(
@@ -177,9 +178,9 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
           const SizedBox(height: 24),
 
           // Statistics Section
-          const Text(
-            'الإحصائيات',
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context).statistics,
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -189,7 +190,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
             children: [
               Expanded(
                 child: _buildStatCard(
-                  'الطلبات الحالية',
+                  AppLocalizations.of(context).currentOrders,
                   details.statistics.currentApplications.toString(),
                   Colors.orange,
                 ),
@@ -197,7 +198,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: _buildStatCard(
-                  'الطلبات المكتملة',
+                  AppLocalizations.of(context).completedOrdersStat,
                   details.statistics.completedApplications.toString(),
                   Colors.green,
                 ),
@@ -205,7 +206,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
               const SizedBox(width: 12),
               Expanded(
                 child: _buildStatCard(
-                  'إجمالي الطلبات',
+                  AppLocalizations.of(context).totalOrders,
                   details.statistics.totalApplications.toString(),
                   AppColors.primary,
                 ),
@@ -219,7 +220,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'الطلبات الخاصة بالسائق (${details.orders.length})',
+                '${AppLocalizations.of(context).driverOrders} (${details.orders.length})',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -241,7 +242,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
                     Icon(Icons.inbox, size: 48, color: Colors.grey[400]),
                     const SizedBox(height: 8),
                     Text(
-                      'لا توجد طلبات مخصصة لهذا السائق',
+                      AppLocalizations.of(context).noOrdersForDriver,
                       style: TextStyle(color: Colors.grey[600]),
                     ),
                   ],
@@ -349,7 +350,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'حاوية رقم: ${order.containerNumber?.toString() ?? "غير محدد"}',
+                        '${AppLocalizations.of(context).containerNumber}: ${order.containerNumber?.toString() ?? AppLocalizations.of(context).unspecified}',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -369,26 +370,26 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
               // Order Details
               _buildOrderDetailRow(
                 Icons.inventory,
-                'النوع',
+                AppLocalizations.of(context).type,
                 order.type,
               ),
               const SizedBox(height: 8),
               _buildOrderDetailRow(
                 Icons.straighten,
-                'الحجم',
+                AppLocalizations.of(context).size,
                 order.size,
               ),
               const SizedBox(height: 8),
               _buildOrderDetailRow(
                 Icons.calendar_today,
-                'تاريخ التسليم',
+                AppLocalizations.of(context).deliveryDate,
                 order.deliveryDate,
               ),
               if (order.orderType != null) ...[
                 const SizedBox(height: 8),
                 _buildOrderDetailRow(
                   Icons.local_shipping,
-                  'نوع الطلب',
+                  AppLocalizations.of(context).orderType,
                   _getOrderTypeLabel(order.orderType!),
                 ),
               ],
@@ -396,7 +397,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
                 const SizedBox(height: 8),
                 _buildOrderDetailRow(
                   Icons.person,
-                  'العميل',
+                  AppLocalizations.of(context).customer,
                   order.customerName!,
                 ),
               ],
@@ -404,7 +405,7 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
                 const SizedBox(height: 8),
                 _buildOrderDetailRow(
                   Icons.location_on,
-                  'الموقع',
+                  AppLocalizations.of(context).address,
                   order.deliveryLocation!.address ?? 
                     '${order.deliveryLocation!.latitude.toStringAsFixed(4)}, ${order.deliveryLocation!.longitude.toStringAsFixed(4)}',
                 ),
@@ -442,13 +443,14 @@ class _DriverDetailsScreenState extends ConsumerState<DriverDetailsScreen> {
   }
 
   String _getOrderTypeLabel(String type) {
+    final loc = AppLocalizations.of(context);
     switch (type) {
       case 'delivery':
-        return 'توصيل';
+        return loc.delivery;
       case 'unload':
-        return 'تفريغ';
+        return loc.unload;
       case 'return':
-        return 'إرجاع';
+        return loc.returnOrder;
       default:
         return type;
     }

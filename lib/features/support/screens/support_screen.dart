@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart' as intl;
-import '../../../core/config/app_theme.dart'; // Corrected back to your path
+import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../providers/chat_providers.dart';
 import '../models/company_chat_message.dart';
 
@@ -95,7 +96,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('تعذر إرسال الرسالة')));
+      ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context).failedToSendMessage)));
     }
   }
 
@@ -103,12 +104,13 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
       d1.year == d2.year && d1.month == d2.month && d1.day == d2.day;
 
   Widget _buildDateHeader(DateTime date) {
+    final loc = AppLocalizations.of(context);
     String label;
     final now = DateTime.now();
     if (_isSameDay(date, now)) {
-      label = 'اليوم';
+      label = loc.today;
     } else if (_isSameDay(date, now.subtract(const Duration(days: 1)))) {
-      label = 'أمس';
+      label = loc.yesterday;
     } else {
       label = intl.DateFormat('d MMMM yyyy', 'ar').format(date);
     }
@@ -162,7 +164,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
-        title: const Text('الدعم الفني', style: TextStyle(fontSize: 18)),
+        title: Text(AppLocalizations.of(context).supportTitle, style: const TextStyle(fontSize: 18)),
         centerTitle: true,
       ),
       body:
@@ -246,7 +248,7 @@ class _SupportScreenState extends ConsumerState<SupportScreen> {
                 textDirection: TextDirection.rtl,
                 maxLines: null,
                 decoration: InputDecoration(
-                  hintText: 'اكتب رسالتك...',
+                  hintText: AppLocalizations.of(context).typeYourMessage,
                   hintStyle: TextStyle(color: Colors.grey.shade400),
                   filled: true,
                   fillColor: const Color(0xFFF7F9FC),

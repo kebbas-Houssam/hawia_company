@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/driver.dart';
 import '../providers/drivers_provider.dart';
+import '../../../core/utils/app_localizations.dart';
 
 class DeleteDriverDialog extends ConsumerStatefulWidget {
   final Driver driver;
@@ -30,8 +31,8 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('تم حذف السائق بنجاح'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).driverDeletedSuccess),
             backgroundColor: Colors.green,
           ),
         );
@@ -44,7 +45,7 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('فشل حذف السائق: ${e.toString()}'),
+            content: Text('${AppLocalizations.of(context).driverDeleteFailed}: ${e.toString()}'),
             backgroundColor: Colors.red,
           ),
         );
@@ -55,9 +56,9 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'تأكيد حذف السائق',
-        style: TextStyle(fontWeight: FontWeight.bold),
+      title: Text(
+        AppLocalizations.of(context).confirmDeleteDriver,
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -65,7 +66,7 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
         children: [
           RichText(
             text: TextSpan(
-              text: 'هل أنت متأكد من حذف السائق: ',
+              text: '${AppLocalizations.of(context).confirmDeleteDriverMsg} ',
               style: TextStyle(color: Colors.grey[800], fontSize: 16),
               children: [
                 TextSpan(
@@ -90,7 +91,7 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'لا يمكن التراجع عن هذا الإجراء.',
+                    AppLocalizations.of(context).cannotUndo,
                     style: TextStyle(
                       color: Colors.orange[900],
                       fontWeight: FontWeight.w500,
@@ -105,7 +106,7 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
       actions: [
         OutlinedButton(
           onPressed: _isDeleting ? null : () => Navigator.of(context).pop(),
-          child: const Text('إلغاء'),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _isDeleting ? null : _handleDelete,
@@ -122,7 +123,7 @@ class _DeleteDriverDialogState extends ConsumerState<DeleteDriverDialog> {
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 )
-              : const Text('حذف'),
+              : Text(AppLocalizations.of(context).delete),
         ),
       ],
     );

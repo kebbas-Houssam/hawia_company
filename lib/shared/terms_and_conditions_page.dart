@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/config/app_theme.dart';
+import '../core/utils/app_localizations.dart';
 
 class TermsAndConditionsPage extends StatelessWidget {
   const TermsAndConditionsPage({Key? key}) : super(key: key);
@@ -12,9 +13,9 @@ class TermsAndConditionsPage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         iconTheme: const IconThemeData(color: AppColors.white),
         elevation: 0,
-        title: const Text(
-          'الشروط والأحكام',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).termsAndConditions,
+          style: const TextStyle(
             color: AppColors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,

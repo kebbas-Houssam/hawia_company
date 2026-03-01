@@ -4,6 +4,7 @@ import '../models/driver.dart';
 import '../models/driver_requests.dart';
 import '../providers/drivers_provider.dart';
 import '../../../core/config/app_theme.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../../../shared/widgets/icon_text_form_field.dart';
 import '../../../shared/widgets/loading_button.dart';
 
@@ -53,18 +54,19 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
   }
 
   String? _validateName(String? value) {
+    final loc = AppLocalizations.of(context);
     if (value == null || value.trim().isEmpty) {
-      return 'الاسم مطلوب';
+      return loc.nameRequired;
     }
     if (value.trim().length < 2) {
-      return 'الاسم يجب أن يكون على الأقل حرفين';
+      return loc.nameMinLength;
     }
     return null;
   }
 
   String? _validatePhone(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'رقم الهاتف مطلوب';
+      return AppLocalizations.of(context).phoneRequired;
     }
     return null;
   }
@@ -72,7 +74,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
   String? _validateIdentityNumber(String? value) {
     // Identity number is now optional
     if (value != null && value.trim().isNotEmpty && value.trim().length < 5) {
-      return 'رقم الهوية يجب أن يكون على الأقل 5 أرقام';
+      return AppLocalizations.of(context).identityMinLength;
     }
     return null;
   }
@@ -81,7 +83,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
     if (value != null && value.trim().isNotEmpty) {
       final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
       if (!emailRegex.hasMatch(value)) {
-        return 'البريد الإلكتروني غير صالح';
+        return AppLocalizations.of(context).emailInvalid;
       }
     }
     return null;
@@ -90,7 +92,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
   String? _validatePassword(String? value) {
     if (value != null && value.trim().isNotEmpty) {
       if (value.length < 6) {
-        return 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+        return AppLocalizations.of(context).passwordMinLength;
       }
     }
     return null;
@@ -107,7 +109,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
 
     if (_selectedAvailability == null) {
       setState(() {
-        _errorMessage = 'يرجى اختيار حالة السائق';
+        _errorMessage = AppLocalizations.of(context).pleaseSelectDriverStatus;
       });
       return;
     }
@@ -139,8 +141,8 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
       if (mounted) {
         Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('تم تحديث بيانات السائق بنجاح'),
+          SnackBar(
+            content: Text(AppLocalizations.of(context).driverUpdatedSuccess),
             backgroundColor: Colors.green,
           ),
         );
@@ -176,9 +178,9 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'تعديل بيانات السائق',
-                      style: TextStyle(
+                    Text(
+                      AppLocalizations.of(context).editDriverData,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
@@ -215,9 +217,9 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                     ),
                   ),
 
-                const Text(
-                  'معلومات السائق',
-                  style: TextStyle(
+                Text(
+                  AppLocalizations.of(context).driverInfo,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -226,18 +228,18 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
 
                 // Name field
                 IconTextFormField(
-                  label: 'اسم السائق',
+                  label: AppLocalizations.of(context).driverNameLabel,
                   icon: Icons.person,
                   controller: _nameController,
                   validator: _validateName,
                   isRequired: true,
-                  hintText: 'أدخل الاسم الكامل',
+                  hintText: AppLocalizations.of(context).enterFullName,
                 ),
                 const SizedBox(height: 16),
 
                 // Phone field
                 IconTextFormField(
-                  label: 'رقم الهاتف',
+                  label: AppLocalizations.of(context).phoneNumber,
                   icon: Icons.phone,
                   controller: _phoneController,
                   validator: _validatePhone,
@@ -249,7 +251,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
 
                 // Identity number field
                 IconTextFormField(
-                  label: 'رقم الهوية',
+                  label: AppLocalizations.of(context).identityNumberLabel,
                   icon: Icons.badge,
                   controller: _identityNumberController,
                   validator: _validateIdentityNumber,
@@ -264,9 +266,9 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                      text: const TextSpan(
-                        text: 'حالة السائق',
-                        style: TextStyle(fontSize: 14, color: Colors.black87),
+                      text: TextSpan(
+                        text: AppLocalizations.of(context).driverStatus,
+                        style: const TextStyle(fontSize: 14, color: Colors.black87),
                         children: [
                           TextSpan(
                             text: ' *',
@@ -279,7 +281,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                     DropdownButtonFormField<String>(
                       value: _selectedAvailability,
                       decoration: InputDecoration(
-                        hintText: 'اختر حالة السائق',
+                        hintText: AppLocalizations.of(context).selectDriverStatus,
                         prefixIcon: const Icon(Icons.people),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -289,22 +291,22 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                           vertical: 12,
                         ),
                       ),
-                      items: const [
+                      items: [
                         DropdownMenuItem(
                           value: 'available',
-                          child: Text('متاح'),
+                          child: Text(AppLocalizations.of(context).available),
                         ),
                         DropdownMenuItem(
                           value: 'on_duty',
-                          child: Text('في الخدمة'),
+                          child: Text(AppLocalizations.of(context).onDuty),
                         ),
                         DropdownMenuItem(
                           value: 'off_duty',
-                          child: Text('خارج الخدمة'),
+                          child: Text(AppLocalizations.of(context).offDuty),
                         ),
                         DropdownMenuItem(
                           value: 'on_break',
-                          child: Text('في استراحة'),
+                          child: Text(AppLocalizations.of(context).onBreak),
                         ),
                       ],
                       onChanged: (value) {
@@ -320,7 +322,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
 
                 // Email field (optional)
                 IconTextFormField(
-                  label: 'البريد الإلكتروني (اختياري)',
+                  label: AppLocalizations.of(context).emailOptional,
                   icon: Icons.email,
                   controller: _emailController,
                   validator: _validateEmail,
@@ -331,7 +333,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
 
                 // Password field (optional)
                 IconTextFormField(
-                  label: 'كلمة المرور الجديدة (اتركها فارغة إذا لم ترد تغييرها)',
+                  label: AppLocalizations.of(context).newPasswordOptional,
                   icon: Icons.lock,
                   controller: _passwordController,
                   validator: _validatePassword,
@@ -359,7 +361,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                   children: [
                     Expanded(
                       child: LoadingButton(
-                        text: 'تحديث البيانات',
+                        text: AppLocalizations.of(context).updateData,
                         isLoading: _isLoading,
                         onPressed: _handleSubmit,
                         backgroundColor: AppColors.primary,
@@ -377,7 +379,7 @@ class _EditDriverDialogState extends ConsumerState<EditDriverDialog> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text('إلغاء'),
+                        child: Text(AppLocalizations.of(context).cancel),
                       ),
                     ),
                   ],

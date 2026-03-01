@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../core/utils/app_localizations.dart';
 import '../models/order_models.dart' as models;
 import '../providers/orders_provider.dart';
 import '../widgets/order_details_modal.dart';
@@ -43,7 +44,7 @@ class _CompletedOrdersScreenState extends ConsumerState<CompletedOrdersScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الطلبات المكتملة'),
+        title: Text(AppLocalizations.of(context).completedOrders),
         actions: [
           Stack(
             children: [
@@ -91,7 +92,7 @@ class _CompletedOrdersScreenState extends ConsumerState<CompletedOrdersScreen> {
                           onPressed: () => ref
                               .read(completedOrdersProvider.notifier)
                               .fetchOrders(),
-                          child: const Text('إعادة المحاولة'),
+                          child: Text(AppLocalizations.of(context).retry),
                         ),
                       ],
                     ),
@@ -105,7 +106,7 @@ class _CompletedOrdersScreenState extends ConsumerState<CompletedOrdersScreen> {
                                 size: 64, color: Colors.grey[400]),
                             const SizedBox(height: 16),
                             Text(
-                              'لا توجد طلبات مكتملة',
+                              AppLocalizations.of(context).noCompletedOrders,
                               style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                             ),
                           ],
@@ -154,7 +155,7 @@ class _CompletedOrdersScreenState extends ConsumerState<CompletedOrdersScreen> {
                             Padding(
                               padding: const EdgeInsets.all(16),
                               child: Text(
-                                'عرض ${ordersState.orders.length} من ${ordersState.pagination!.totalOrders} طلب',
+                                '${AppLocalizations.of(context).showingXOfY} ${ordersState.orders.length} ${AppLocalizations.of(context).ofWord} ${ordersState.pagination!.totalOrders} ${AppLocalizations.of(context).orderWord}',
                                 style: TextStyle(color: Colors.grey[600]),
                               ),
                             ),
@@ -218,7 +219,7 @@ class _CompletedOrdersScreenState extends ConsumerState<CompletedOrdersScreen> {
 
     if (availableFilters == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('لا توجد مرشحات متاحة')),
+        SnackBar(content: Text(AppLocalizations.of(context).noFiltersAvailable)),
       );
       return;
     }
@@ -263,7 +264,7 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('تصفية الطلبات'),
+      title: Text(AppLocalizations.of(context).filterOrders),
       content: SizedBox(
         width: double.maxFinite,
         child: Column(
@@ -271,8 +272,8 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Container Type Filter
-            const Text(
-              'نوع الحاوية',
+            Text(
+              AppLocalizations.of(context).containerType,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -284,7 +285,7 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
               runSpacing: 8,
               children: [
                 ChoiceChip(
-                  label: const Text('الكل'),
+                  label: Text(AppLocalizations.of(context).all),
                   selected: _selectedContainerType == null,
                   onSelected: (selected) {
                     if (selected) {
@@ -306,8 +307,8 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
             const SizedBox(height: 24),
             
             // City Filter
-            const Text(
-              'المدينة',
+            Text(
+              AppLocalizations.of(context).cityLabel,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -319,7 +320,7 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
               runSpacing: 8,
               children: [
                 ChoiceChip(
-                  label: const Text('الكل'),
+                  label: Text(AppLocalizations.of(context).all),
                   selected: _selectedCity == null,
                   onSelected: (selected) {
                     if (selected) {
@@ -351,7 +352,7 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
             ref.read(completedOrdersProvider.notifier).fetchOrders();
             Navigator.pop(context);
           },
-          child: const Text('إعادة تعيين'),
+          child: Text(AppLocalizations.of(context).reset),
         ),
         ElevatedButton(
           onPressed: () {
@@ -362,7 +363,7 @@ class _FilterDialogState extends ConsumerState<_FilterDialog> {
             ref.read(completedOrdersProvider.notifier).fetchOrders();
             Navigator.pop(context);
           },
-          child: const Text('تطبيق'),
+          child: Text(AppLocalizations.of(context).apply),
         ),
       ],
     );
@@ -415,7 +416,7 @@ class _OrderCard extends StatelessWidget {
         onTap: () {
           showOrderDetailsModal(
             context,
-            orderNumber: order.orderNumber ?? 'غير محدد',
+            orderNumber: order.orderNumber ?? AppLocalizations.of(context).unspecified,
             containerType: order.containerType,
             containerSize: order.container?.size,
             deliveryDate: order.deliveryDate,
@@ -436,7 +437,7 @@ class _OrderCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    order.orderNumber ?? 'غير محدد',
+                    order.orderNumber ?? AppLocalizations.of(context).unspecified,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -449,8 +450,8 @@ class _OrderCard extends StatelessWidget {
                     color: const Color(0xFF9C27B0).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: const Text(
-                    'مكتمل',
+                  child: Text(
+                    AppLocalizations.of(context).statusCompleted,
                     style: TextStyle(
                       fontSize: 12,
                       color: Color(0xFF9C27B0),
@@ -465,7 +466,7 @@ class _OrderCard extends StatelessWidget {
               children: [
                 const Icon(Icons.inbox, size: 16, color: Colors.grey),
                 const SizedBox(width: 8),
-                Text('${order.containerType ?? 'غير محدد'}${order.container != null ? ' - ${order.container!.size}' : ''}'),
+                Text('${order.containerType ?? AppLocalizations.of(context).unspecified}${order.container != null ? ' - ${order.container!.size}' : ''}'),
               ],
             ),
             const SizedBox(height: 4),
@@ -496,9 +497,9 @@ class _OrderCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('الإجمالي:', style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(AppLocalizations.of(context).totalLabel, style: const TextStyle(fontWeight: FontWeight.bold)),
                 Text(
-                  '${priceFormat.format(order.totalPrice)} ريال',
+                  '${priceFormat.format(order.totalPrice)} ${AppLocalizations.of(context).sar}',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
